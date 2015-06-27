@@ -10,6 +10,9 @@ public:
     void begin();
     void end();
     void draw();
+    void pause();
+    void unpause();
+    void togglePause();
     void captureFrame();
     void renderGif();
     void exit();

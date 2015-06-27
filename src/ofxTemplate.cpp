@@ -52,6 +52,18 @@ void ofxTemplate::draw(){
        20, height - 50);
 }
 
+void ofxTemplate::pause(){
+    paused = true;
+}
+
+void ofxTemplate::unpause(){
+    paused = false;
+}
+
+void ofxTemplate::togglePause(){
+    paused = !paused;
+}
+
 void ofxTemplate::captureFrame(){
     if(!renderingNow && !paused) {
         fbo.readToPixels(pixels);
