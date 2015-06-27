@@ -1,16 +1,16 @@
 #include "ofxTemplate.h"
 
-void ofxTemplate::setup(string _filename, int _renderOnFrame, int _width, int _height, bool _paused, bool _slowMode) {
-    slowMode = _slowMode;
-    paused = _paused;
+void ofxTemplate::setup(string _filename, int _renderOnFrame, int _width, int _height) {
+    filename = _filename + ".gif";
+    renderOnFrame = _renderOnFrame;
     width = _width;
     height = _height;
     frameDuration = 0.2;
     colors = 256;
-    renderOnFrame = _renderOnFrame;
-
-    filename = _filename + ".gif";
-    framerate = slowMode ? 5 : 10;
+    slowMode = false;
+    paused = false;
+    renderingNow = false;
+    renderMessage = "";
 
     halfWidth = width * 0.5;
     halfHeight = height * 0.5;
@@ -19,15 +19,14 @@ void ofxTemplate::setup(string _filename, int _renderOnFrame, int _width, int _h
     tripleWidth = width * 3;
     tripleHeight = height * 3;
 
-    ofSetFrameRate(framerate);
-    gifEncoder.setup(width, height, frameDuration, colors);
-    renderingNow = false;
-    renderMessage = "";
-    
     fbo.allocate(width, height, GL_RGB);
     fbo.begin();
     ofClear(255, 255, 255, 0);
     fbo.end();
+
+    framerate = slowMode ? 5 : 10;
+    ofSetFrameRate(framerate);
+    gifEncoder.setup(width, height, frameDuration, colors);
 }
 
 void ofxTemplate::begin(){
@@ -67,6 +66,10 @@ void ofxTemplate::unpause(){
 
 void ofxTemplate::togglePause(){
     paused = !paused;
+}
+
+void ofxTemplate::enableSlowMode(){
+    slowMode = true;
 }
 
 void ofxTemplate::captureFrame(){

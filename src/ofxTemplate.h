@@ -6,7 +6,7 @@
 class ofxTemplate : public ofBaseApp{
 
 public:
-    void setup(string _filename, int renderOnFrame=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), bool _paused=false, bool _slowMode=false);
+    void setup(string _filename, int renderOnFrame=-1, int _width=ofGetWidth(), int _height=ofGetHeight());
     void begin();
     void end();
     void endAndCaptureFrame();
@@ -14,6 +14,7 @@ public:
     void pause();
     void unpause();
     void togglePause();
+    void enableSlowMode();
     void captureFrame();
     void renderGif();
     void exit();
