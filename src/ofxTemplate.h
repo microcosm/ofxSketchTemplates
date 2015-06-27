@@ -9,6 +9,7 @@ public:
     void setup(string _filename, int _width=ofGetWidth(), int _height=ofGetHeight(), bool _paused=false, bool _slowMode=false);
     void begin();
     void end();
+    void endAndCaptureFrame();
     void draw();
     void pause();
     void unpause();

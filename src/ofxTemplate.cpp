@@ -38,6 +38,11 @@ void ofxTemplate::end(){
     fbo.end();
 }
 
+void ofxTemplate::endAndCaptureFrame(){
+    end();
+    captureFrame();
+}
+
 void ofxTemplate::draw(){
     ofSetColor(ofColor::white);
     fbo.draw(0, 0);
