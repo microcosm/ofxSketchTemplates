@@ -2,7 +2,7 @@
 
 void ofApp::setup(){
     ofSetWindowShape(500, 500);
-    gifEncoder.setup(ofGetTimestampString("%Y-%m-%d") + ".gif");
+    gif.setup(ofGetTimestampString("%Y-%m-%d"), 12);
 }
 
 void ofApp::update(){
@@ -10,13 +10,13 @@ void ofApp::update(){
 }
 
 void ofApp::draw(){
-    gifEncoder.begin();
+    gif.begin();
     {
         ofBackground(ofColor::black);
-        ofRect(ofGetFrameNum() * 5, ofGetFrameNum() * 5, gifEncoder.width * 0.2, gifEncoder.height * 0.2);
+        ofRect(ofGetFrameNum() * 5, ofGetFrameNum() * 5, gif.width * 0.2, gif.height * 0.2);
     }
-    gifEncoder.endAndCaptureFrame();
-    gifEncoder.draw();
+    gif.endAndCaptureFrame();
+    gif.draw();
 }
 
 void ofApp::keyPressed(int key){

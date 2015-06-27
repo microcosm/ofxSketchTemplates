@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxGifEncoder.h"
 
-class ofxTemplate : public ofBaseApp{
+class ofxGifEncoderTemplate : public ofBaseApp{
 
 public:
     void setup(string _filename, int renderOnFrame=-1, int _width=ofGetWidth(), int _height=ofGetHeight());

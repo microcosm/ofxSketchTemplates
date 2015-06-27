@@ -1,6 +1,6 @@
-#include "ofxTemplate.h"
+#include "ofxGifEncoderTemplate.h"
 
-void ofxTemplate::setup(string _filename, int _renderOnFrame, int _width, int _height) {
+void ofxGifEncoderTemplate::setup(string _filename, int _renderOnFrame, int _width, int _height) {
     filename = _filename + ".gif";
     renderOnFrame = _renderOnFrame;
     width = _width;
@@ -29,20 +29,20 @@ void ofxTemplate::setup(string _filename, int _renderOnFrame, int _width, int _h
     gifEncoder.setup(width, height, frameDuration, colors);
 }
 
-void ofxTemplate::begin(){
+void ofxGifEncoderTemplate::begin(){
     fbo.begin();
 }
 
-void ofxTemplate::end(){
+void ofxGifEncoderTemplate::end(){
     fbo.end();
 }
 
-void ofxTemplate::endAndCaptureFrame(){
+void ofxGifEncoderTemplate::endAndCaptureFrame(){
     end();
     captureFrame();
 }
 
-void ofxTemplate::draw(){
+void ofxGifEncoderTemplate::draw(){
     ofSetColor(ofColor::white);
     fbo.draw(0, 0);
     ofDrawBitmapString(
@@ -56,23 +56,23 @@ void ofxTemplate::draw(){
        20, height - 50);
 }
 
-void ofxTemplate::pause(){
+void ofxGifEncoderTemplate::pause(){
     paused = true;
 }
 
-void ofxTemplate::unpause(){
+void ofxGifEncoderTemplate::unpause(){
     paused = false;
 }
 
-void ofxTemplate::togglePause(){
+void ofxGifEncoderTemplate::togglePause(){
     paused = !paused;
 }
 
-void ofxTemplate::enableSlowMode(){
+void ofxGifEncoderTemplate::enableSlowMode(){
     slowMode = true;
 }
 
-void ofxTemplate::captureFrame(){
+void ofxGifEncoderTemplate::captureFrame(){
     if(!renderingNow && !paused) {
         fbo.readToPixels(pixels);
         gifEncoder.addFrame(pixels.getPixels(), width, height,
@@ -84,7 +84,7 @@ void ofxTemplate::captureFrame(){
     }
 }
 
-void ofxTemplate::renderGif() {
+void ofxGifEncoderTemplate::renderGif() {
     if(!renderingNow) {
         renderingNow = true;
         gifEncoder.save(filename);
@@ -92,6 +92,6 @@ void ofxTemplate::renderGif() {
     }
 }
 
-void ofxTemplate::exit(){
+void ofxGifEncoderTemplate::exit(){
     gifEncoder.exit();
 }

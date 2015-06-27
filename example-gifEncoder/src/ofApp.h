@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxTemplate.h"
+#include "ofxGifEncoderTemplate.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +20,5 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
-    ofxTemplate gifEncoder;
+    ofxGifEncoderTemplate gif;
 };
