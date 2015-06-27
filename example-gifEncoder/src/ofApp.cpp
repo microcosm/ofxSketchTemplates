@@ -1,7 +1,8 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
-
+    ofSetWindowShape(500, 500);
+    gifEncoder.setup(ofGetTimestampString("%Y-%m-%d") + ".gif");
 }
 
 void ofApp::update(){
@@ -9,7 +10,13 @@ void ofApp::update(){
 }
 
 void ofApp::draw(){
-
+    gifEncoder.begin();
+    {
+        ofBackground(ofColor::black);
+        ofRect(ofGetFrameNum() * 5, ofGetFrameNum() * 5, gifEncoder.width * 0.2, gifEncoder.height * 0.2);
+    }
+    gifEncoder.endAndCaptureFrame();
+    gifEncoder.draw();
 }
 
 void ofApp::keyPressed(int key){
