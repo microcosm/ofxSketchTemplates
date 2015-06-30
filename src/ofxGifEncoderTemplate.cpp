@@ -1,8 +1,8 @@
 #include "ofxGifEncoderTemplate.h"
 
-void ofxGifEncoderTemplate::setup(string _filename, int _renderOnFrame, int _width, int _height) {
+void ofxGifEncoderTemplate::setup(string _filename, int _numFramesToRender, int _width, int _height) {
     filename = _filename + ".gif";
-    renderOnFrame = _renderOnFrame;
+    renderOnFrame = _numFramesToRender - 1;
     width = _width;
     height = _height;
     frameDuration = 0.2;

@@ -6,7 +6,7 @@
 class ofxGifEncoderTemplate : public ofBaseApp{
 
 public:
-    void setup(string _filename, int renderOnFrame=-1, int _width=ofGetWidth(), int _height=ofGetHeight());
+    void setup(string _filename, int _numFramesToRender=-1, int _width=ofGetWidth(), int _height=ofGetHeight());
     void begin();
     void end();
     void endAndCaptureFrame();
