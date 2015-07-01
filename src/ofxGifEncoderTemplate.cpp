@@ -2,7 +2,7 @@
 
 void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height) {
     filename = _filename + ".gif";
-    renderOnFrame = _recordToFrameCount;
+    renderOnFrame = _recordToFrameCount - 1;
     width = _width;
     height = _height;
     frameDuration = 0.2;
