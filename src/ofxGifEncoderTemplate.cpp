@@ -39,11 +39,12 @@ void ofxGifEncoderTemplate::setupPaused(string _filename, int _recordFromFrameCo
     pause();
 }
 
-void ofxGifEncoderTemplate::fadeInOut(int numFrames, ofColor color) {
+void ofxGifEncoderTemplate::fadeInOut(int numFrames, ofColor color, int _numBlankFramesAfterFadeOut) {
     fadeAlphaIncrement = 255 / numFrames;
     beginFadeOutOnFrame = renderOnFrame - numFrames + 1;
     fadeColor = color;
     fade = true;
+    numBlankFramesAfterFadeOut = _numBlankFramesAfterFadeOut;
 }
 
 void ofxGifEncoderTemplate::begin(){
@@ -94,9 +95,7 @@ void ofxGifEncoderTemplate::enableSlowMode(){
 
 void ofxGifEncoderTemplate::captureFrame(){
     if(!renderingNow && !paused) {
-        fbo.readToPixels(pixels);
-        gifEncoder.addFrame(pixels.getPixels(), width, height,
-                            pixels.getBitsPerPixel(), frameDuration);
+        drawFboIntoGifEncoder();
 
         if(ofGetFrameNum() == renderOnFrame) {
             render();
@@ -109,6 +108,7 @@ void ofxGifEncoderTemplate::captureFrame(){
 }
 
 void ofxGifEncoderTemplate::render() {
+    drawBlankFrames();
     if(!renderingNow) {
         renderingNow = true;
         gifEncoder.save(filename);
@@ -118,6 +118,12 @@ void ofxGifEncoderTemplate::render() {
 
 void ofxGifEncoderTemplate::exit(){
     gifEncoder.exit();
+}
+
+void ofxGifEncoderTemplate::drawFboIntoGifEncoder() {
+    fbo.readToPixels(pixels);
+    gifEncoder.addFrame(pixels.getPixels(), width, height,
+                        pixels.getBitsPerPixel(), frameDuration);
 }
 
 void ofxGifEncoderTemplate::drawFadeIfNeeded() {
@@ -138,4 +144,13 @@ void ofxGifEncoderTemplate::drawFade() {
         ofRect(0, 0, width, height);
     }
     ofPopStyle();
+}
+
+void ofxGifEncoderTemplate::drawBlankFrames() {
+    fbo.begin();
+    ofClear(fadeColor);
+    fbo.end();
+    for(int i = 0; i < numBlankFramesAfterFadeOut; i++) {
+        drawFboIntoGifEncoder();
+    }
 }
