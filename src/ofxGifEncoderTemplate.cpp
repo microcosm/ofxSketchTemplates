@@ -3,6 +3,8 @@
 void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height) {
     filename = _filename + ".gif";
     renderOnFrame = _recordToFrameCount - 1;
+    fadeAlpha = 0;
+    fade = false;
     width = _width;
     height = _height;
     frameDuration = 0.2;
@@ -37,6 +39,12 @@ void ofxGifEncoderTemplate::setupPaused(string _filename, int _recordFromFrameCo
     pause();
 }
 
+void ofxGifEncoderTemplate::fadeInOut(int numFrames, ofColor color) {
+    fadeAlphaIncrement = 255 / numFrames;
+    fadeColor = color;
+    fade = true;
+}
+
 void ofxGifEncoderTemplate::begin(){
     fbo.begin();
 }
@@ -46,6 +54,7 @@ void ofxGifEncoderTemplate::end(){
 }
 
 void ofxGifEncoderTemplate::endAndCaptureFrame(){
+    drawFade();
     end();
     captureFrame();
 }
@@ -68,6 +77,9 @@ void ofxGifEncoderTemplate::pause(){
 
 void ofxGifEncoderTemplate::unpause(){
     paused = false;
+    if(fade) {
+        fadeAlpha = 255;
+    }
     renderMessage = "[[RECORDING...]]";
 }
 
@@ -105,4 +117,16 @@ void ofxGifEncoderTemplate::renderGif() {
 
 void ofxGifEncoderTemplate::exit(){
     gifEncoder.exit();
+}
+
+void ofxGifEncoderTemplate::drawFade() {
+    if(fadeAlpha > 0) {
+        ofPushStyle();
+        {
+            ofSetColor(fadeColor, fadeAlpha);
+            ofRect(0, 0, width, height);
+        }
+        ofPopStyle();
+        fadeAlpha -= fadeAlphaIncrement;
+    }
 }
