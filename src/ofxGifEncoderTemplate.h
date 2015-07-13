@@ -26,6 +26,7 @@ public:
     int doubleWidth, doubleHeight;
     int tripleWidth, tripleHeight;
 protected:
+    void drawFadeIfNeeded();
     void drawFade();
     int colors, frameDuration;
     int framerate, renderOnFrame, unpauseOnFrame;
@@ -38,4 +39,5 @@ protected:
     ofColor fadeColor;
     float fadeAlpha, fadeAlphaIncrement;
     bool fade;
+    int beginFadeOutOnFrame;
 };
