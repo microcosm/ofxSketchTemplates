@@ -18,7 +18,7 @@ public:
     void togglePause();
     void enableSlowMode();
     void captureFrame();
-    void renderGif();
+    void render();
     void exit();
 
     int width, height;

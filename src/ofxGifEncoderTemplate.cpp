@@ -99,7 +99,7 @@ void ofxGifEncoderTemplate::captureFrame(){
                             pixels.getBitsPerPixel(), frameDuration);
 
         if(ofGetFrameNum() == renderOnFrame) {
-            renderGif();
+            render();
         }
     }
 
@@ -108,7 +108,7 @@ void ofxGifEncoderTemplate::captureFrame(){
     }
 }
 
-void ofxGifEncoderTemplate::renderGif() {
+void ofxGifEncoderTemplate::render() {
     if(!renderingNow) {
         renderingNow = true;
         gifEncoder.save(filename);
