@@ -8,7 +8,7 @@ class ofxGifEncoderTemplate : public ofBaseApp{
 public:
     void setup(string _filename, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight());
     void setupPaused(string _filename, int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight());
-    void fadeInOut(int numFrames, ofColor color=ofColor::black, int _numBlankFramesAfterFadeOut=0);
+    void fadeInOut(int numFramesIn, int numFramesOut, ofColor color=ofColor::black, int _numBlankFramesAfterFadeOut=0);
     void begin();
     void end();
     void endAndCaptureFrame();
@@ -39,7 +39,7 @@ protected:
     ofFbo fbo;
     ofPixels pixels;
     ofColor fadeColor;
-    float fadeAlpha, fadeAlphaIncrement;
+    float fadeAlpha, fadeAlphaIncrementIn, fadeAlphaIncrementOut;
     bool fade;
     int beginFadeOutOnFrame, numBlankFramesAfterFadeOut;
 };

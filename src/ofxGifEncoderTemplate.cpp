@@ -39,9 +39,10 @@ void ofxGifEncoderTemplate::setupPaused(string _filename, int _recordFromFrameCo
     pause();
 }
 
-void ofxGifEncoderTemplate::fadeInOut(int numFrames, ofColor color, int _numBlankFramesAfterFadeOut) {
-    fadeAlphaIncrement = 255 / numFrames;
-    beginFadeOutOnFrame = renderOnFrame - numFrames + 1;
+void ofxGifEncoderTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor color, int _numBlankFramesAfterFadeOut) {
+    fadeAlphaIncrementIn = 255 / numFramesIn;
+    fadeAlphaIncrementOut = 255 / numFramesOut;
+    beginFadeOutOnFrame = renderOnFrame - numFramesOut + 1;
     fadeColor = color;
     fade = true;
     numBlankFramesAfterFadeOut = _numBlankFramesAfterFadeOut;
@@ -129,10 +130,10 @@ void ofxGifEncoderTemplate::drawFboIntoGifEncoder() {
 void ofxGifEncoderTemplate::drawFadeIfNeeded() {
     if(ofGetFrameNum() < beginFadeOutOnFrame && fadeAlpha > 0) {
         drawFade();
-        fadeAlpha -= fadeAlphaIncrement;
+        fadeAlpha -= fadeAlphaIncrementIn;
     }
     if(ofGetFrameNum() >= beginFadeOutOnFrame && fadeAlpha < 255) {
-        fadeAlpha += fadeAlphaIncrement;
+        fadeAlpha += fadeAlphaIncrementOut;
         drawFade();
     }
 }
