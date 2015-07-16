@@ -43,7 +43,7 @@ void ofxGifEncoderTemplate::setupPaused(string _filename, int _recordFromFrameCo
 void ofxGifEncoderTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor color, int _numBlankFramesAfterFadeOut) {
     fadeAlphaIncrementIn = 255 / numFramesIn;
     fadeAlphaIncrementOut = 255 / numFramesOut;
-    beginFadeOutOnFrame = renderOnFrame - numFramesOut + 1;
+    beginFadeOutOnFrame = renderOnFrame - numFramesOut;
     fadeColor = color;
     fade = true;
     numBlankFramesAfterFadeOut = _numBlankFramesAfterFadeOut;
