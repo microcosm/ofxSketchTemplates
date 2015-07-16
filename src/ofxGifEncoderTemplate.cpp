@@ -14,6 +14,7 @@ void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int
     renderingNow = false;
     renderMessage = "[[Recording...]]";
     recordingMessage = "Recording to frame " + ofToString(_recordToFrameCount) + " frames";
+    unpauseOnFrame = -1;
 
     halfWidth = width * 0.5;
     halfHeight = height * 0.5;
@@ -46,6 +47,9 @@ void ofxGifEncoderTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor
     fadeColor = color;
     fade = true;
     numBlankFramesAfterFadeOut = _numBlankFramesAfterFadeOut;
+    if(!paused) {
+        fadeAlpha = 255;
+    }
 }
 
 void ofxGifEncoderTemplate::begin(){
