@@ -34,8 +34,8 @@ void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int
 }
 
 void ofxGifEncoderTemplate::setupPaused(string _filename, int _recordFromFrameCount, int _recordToFrameCount, int _width, int _height) {
-    unpauseOnFrame = _recordFromFrameCount - 1;
     setup(_filename, _recordToFrameCount, _width, _height);
+    unpauseOnFrame = _recordFromFrameCount - 1;
     recordingMessage = "Recording from frame " + ofToString(_recordFromFrameCount) + " to frame " + ofToString(_recordToFrameCount);
     pause();
 }
@@ -106,7 +106,7 @@ void ofxGifEncoderTemplate::captureFrame(){
             render();
         }
     }
-    
+
     if(ofGetFrameNum() == unpauseOnFrame) {
         unpause();
     }
