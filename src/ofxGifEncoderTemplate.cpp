@@ -101,15 +101,21 @@ void ofxGifEncoderTemplate::enableSlowMode(){
 void ofxGifEncoderTemplate::captureFrame(){
     if(!renderingNow && !paused) {
         drawFboIntoGifEncoder();
-
+        
         if(ofGetFrameNum() == renderOnFrame) {
             render();
         }
     }
-
+    
     if(ofGetFrameNum() == unpauseOnFrame) {
         unpause();
     }
+}
+
+void ofxGifEncoderTemplate::rotateAroundCenter(float degrees){
+    ofTranslate(halfWidth, halfHeight);
+    ofRotateZ(degrees);
+    ofTranslate(-halfWidth, -halfHeight);
 }
 
 void ofxGifEncoderTemplate::render() {

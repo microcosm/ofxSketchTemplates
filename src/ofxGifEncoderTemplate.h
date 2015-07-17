@@ -18,6 +18,7 @@ public:
     void togglePause();
     void enableSlowMode();
     void captureFrame();
+    void rotateAroundCenter(float degrees);
     void render();
     void exit();
 
