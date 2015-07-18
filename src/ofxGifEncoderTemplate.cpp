@@ -1,6 +1,6 @@
 #include "ofxGifEncoderTemplate.h"
 
-void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height) {
+void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
     filename = _filename + ".gif";
     renderOnFrame = _recordToFrameCount - 1;
     fadeAlpha = 0;
@@ -15,6 +15,7 @@ void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int
     renderMessage = "[[Recording...]]";
     recordingMessage = "Recording to frame " + ofToString(_recordToFrameCount) + " frames";
     unpauseOnFrame = -1;
+    drawingIsolation = isolation;
 
     halfWidth = width * 0.5;
     halfHeight = height * 0.5;
@@ -33,8 +34,8 @@ void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int
     gifEncoder.setup(width, height, frameDuration, colors);
 }
 
-void ofxGifEncoderTemplate::setupPaused(string _filename, int _recordFromFrameCount, int _recordToFrameCount, int _width, int _height) {
-    setup(_filename, _recordToFrameCount, _width, _height);
+void ofxGifEncoderTemplate::setupPaused(string _filename, int _recordFromFrameCount, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
+    setup(_filename, _recordToFrameCount, _width, _height, isolation);
     unpauseOnFrame = _recordFromFrameCount - 1;
     recordingMessage = "Recording from frame " + ofToString(_recordFromFrameCount) + " to frame " + ofToString(_recordToFrameCount);
     pause();
@@ -54,9 +55,11 @@ void ofxGifEncoderTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor
 
 void ofxGifEncoderTemplate::begin(){
     fbo.begin();
+    beginLayerIsolation();
 }
 
 void ofxGifEncoderTemplate::end(){
+    endLayerIsolation();
     drawFadeIfNeeded();
     fbo.end();
 }
@@ -163,5 +166,19 @@ void ofxGifEncoderTemplate::drawBlankFrames() {
     fbo.end();
     for(int i = 0; i < numBlankFramesAfterFadeOut; i++) {
         drawFboIntoGifEncoder();
+    }
+}
+
+void ofxGifEncoderTemplate::beginLayerIsolation() {
+    if(drawingIsolation == ISOLATE_DRAWING) {
+        ofPushMatrix();
+        ofPushStyle();
+    }
+}
+
+void ofxGifEncoderTemplate::endLayerIsolation() {
+    if(drawingIsolation == ISOLATE_DRAWING) {
+        ofPopStyle();
+        ofPopMatrix();
     }
 }
