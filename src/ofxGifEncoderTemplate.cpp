@@ -69,6 +69,12 @@ void ofxGifEncoderTemplate::endAndCaptureFrame(){
     captureFrame();
 }
 
+void ofxGifEncoderTemplate::endCaptureDraw(){
+    end();
+    captureFrame();
+    draw();
+}
+
 void ofxGifEncoderTemplate::draw(){
     ofSetColor(ofColor::white);
     fbo.draw(0, 0);

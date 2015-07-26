@@ -15,8 +15,7 @@ void ofApp::draw(){
         ofBackground(ofColor::black);
         ofRect(ofGetFrameNum() * 5, ofGetFrameNum() * 5, gif.width * 0.2, gif.height * 0.2);
     }
-    gif.endAndCaptureFrame();
-    gif.draw();
+    gif.endCaptureDraw();
 }
 
 void ofApp::keyPressed(int key){

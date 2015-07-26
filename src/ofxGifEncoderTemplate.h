@@ -17,6 +17,7 @@ public:
     void begin();
     void end();
     void endAndCaptureFrame();
+    void endCaptureDraw();
     void draw();
     void pause();
     void unpause();
