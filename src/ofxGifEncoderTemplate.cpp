@@ -4,6 +4,7 @@ void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int
     filename = _filename + ".gif";
     renderOnFrame = _recordToFrameCount - 1;
     fadeAlpha = 0;
+    textColor = ofColor::white;
     fade = false;
     width = _width;
     height = _height;
@@ -41,6 +42,10 @@ void ofxGifEncoderTemplate::setupPaused(string _filename, int _recordFromFrameCo
     pause();
 }
 
+void ofxGifEncoderTemplate::setTextColor(ofColor _textColor) {
+    textColor = _textColor;
+}
+
 void ofxGifEncoderTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor color, int _numBlankFramesAfterFadeOut) {
     fadeAlphaIncrementIn = 255 / numFramesIn;
     fadeAlphaIncrementOut = 255 / numFramesOut;
@@ -76,14 +81,17 @@ void ofxGifEncoderTemplate::endCaptureDraw(){
 }
 
 void ofxGifEncoderTemplate::draw(){
+    ofPushStyle();
     ofSetColor(ofColor::white);
     fbo.draw(0, 0);
+    ofSetColor(textColor);
     ofDrawBitmapString(
        recordingMessage +
        "\n\n" + renderMessage + "\n\n" +
        "Frame count: " + ofToString(ofGetFrameNum() + 1) + " / " +
        ofToString(ofGetFrameRate()) + "fps...",
        20, height - 100);
+    ofPopStyle();
 }
 
 void ofxGifEncoderTemplate::pause(){
