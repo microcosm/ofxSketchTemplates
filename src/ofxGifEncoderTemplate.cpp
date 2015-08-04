@@ -5,6 +5,7 @@ void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int
     renderOnFrame = _recordToFrameCount - 1;
     fadeAlpha = 0;
     textColor = ofColor::white;
+    textOverlay = false;
     fade = false;
     width = _width;
     height = _height;
@@ -46,6 +47,10 @@ void ofxGifEncoderTemplate::setTextColor(ofColor _textColor) {
     textColor = _textColor;
 }
 
+void ofxGifEncoderTemplate::enableTextOverlay() {
+    textOverlay = true;
+}
+
 void ofxGifEncoderTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor color, int _numBlankFramesAfterFadeOut) {
     fadeAlphaIncrementIn = 255 / numFramesIn;
     fadeAlphaIncrementOut = 255 / numFramesOut;
@@ -84,6 +89,8 @@ void ofxGifEncoderTemplate::draw(){
     ofPushStyle();
     ofSetColor(ofColor::white);
     fbo.draw(0, 0);
+    ofSetColor(ofColor(ofColor::gray, 128));
+    ofRect(10, height - 120, 280, 90);
     ofSetColor(textColor);
     ofDrawBitmapString(
        recordingMessage +

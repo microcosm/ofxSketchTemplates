@@ -14,6 +14,7 @@ public:
     void setup(string _filename, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setupPaused(string _filename, int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setTextColor(ofColor _textColor);
+    void enableTextOverlay();
     void fadeInOut(int numFramesIn, int numFramesOut, ofColor color=ofColor::black, int _numBlankFramesAfterFadeOut=0);
     void begin();
     void end();
@@ -51,6 +52,6 @@ protected:
     ofPixels pixels;
     ofColor fadeColor, textColor;
     float fadeAlpha, fadeAlphaIncrementIn, fadeAlphaIncrementOut;
-    bool fade;
+    bool fade, textOverlay;
     int beginFadeOutOnFrame, numBlankFramesAfterFadeOut;
 };
