@@ -29,6 +29,7 @@ public:
     void rotateAroundCenter(float degrees);
     void render();
     void exit();
+    ofVec2f size();
 
     int width, height;
     int halfWidth, halfHeight;

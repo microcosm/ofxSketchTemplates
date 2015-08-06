@@ -155,6 +155,10 @@ void ofxGifEncoderTemplate::exit(){
     gifEncoder.exit();
 }
 
+ofVec2f ofxGifEncoderTemplate::size(){
+    return ofVec2f(width, height);
+}
+
 void ofxGifEncoderTemplate::drawFboIntoGifEncoder() {
     fbo.readToPixels(pixels);
     gifEncoder.addFrame(pixels.getPixels(), width, height,
