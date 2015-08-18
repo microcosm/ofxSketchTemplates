@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840579C61B82AF2700579B66 /* ofxGifEncoderTemplate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840579C41B82AF2700579B66 /* ofxGifEncoderTemplate.cpp */; };
 		84B994D01B3F58090090FDD3 /* ofxGifEncoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84B994CD1B3F58090090FDD3 /* ofxGifEncoder.cpp */; };
-		84B994D91B3F65770090FDD3 /* ofxGifEncoderTemplate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84B994D71B3F65770090FDD3 /* ofxGifEncoderTemplate.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -61,12 +61,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		840579C41B82AF2700579B66 /* ofxGifEncoderTemplate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGifEncoderTemplate.cpp; sourceTree = "<group>"; };
+		840579C51B82AF2700579B66 /* ofxGifEncoderTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGifEncoderTemplate.h; sourceTree = "<group>"; };
 		84B994CC1B3F58090090FDD3 /* ofxGifDitherTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGifDitherTypes.h; sourceTree = "<group>"; };
 		84B994CD1B3F58090090FDD3 /* ofxGifEncoder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGifEncoder.cpp; sourceTree = "<group>"; };
 		84B994CE1B3F58090090FDD3 /* ofxGifEncoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGifEncoder.h; sourceTree = "<group>"; };
 		84B994CF1B3F58090090FDD3 /* ofxGifFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxGifFrame.h; sourceTree = "<group>"; };
-		84B994D71B3F65770090FDD3 /* ofxGifEncoderTemplate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGifEncoderTemplate.cpp; sourceTree = "<group>"; };
-		84B994D81B3F65770090FDD3 /* ofxGifEncoderTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGifEncoderTemplate.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -119,22 +119,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		84B994C51B3F57FD0090FDD3 /* ofxTemplate */ = {
+		840579C21B82AF2700579B66 /* ofxSketchTemplates */ = {
 			isa = PBXGroup;
 			children = (
-				84B994C61B3F57FD0090FDD3 /* src */,
+				840579C31B82AF2700579B66 /* src */,
 			);
-			name = ofxTemplate;
+			name = ofxSketchTemplates;
 			sourceTree = "<group>";
 		};
-		84B994C61B3F57FD0090FDD3 /* src */ = {
+		840579C31B82AF2700579B66 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				84B994D71B3F65770090FDD3 /* ofxGifEncoderTemplate.cpp */,
-				84B994D81B3F65770090FDD3 /* ofxGifEncoderTemplate.h */,
+				840579C41B82AF2700579B66 /* ofxGifEncoderTemplate.cpp */,
+				840579C51B82AF2700579B66 /* ofxGifEncoderTemplate.h */,
 			);
 			name = src;
-			path = ../../../addons/ofxTemplate/src;
+			path = ../src;
 			sourceTree = "<group>";
 		};
 		84B994CA1B3F58090090FDD3 /* ofxGifEncoder */ = {
@@ -160,8 +160,8 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				840579C21B82AF2700579B66 /* ofxSketchTemplates */,
 				84B994CA1B3F58090090FDD3 /* ofxGifEncoder */,
-				84B994C51B3F57FD0090FDD3 /* ofxTemplate */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -332,7 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84B994D01B3F58090090FDD3 /* ofxGifEncoder.cpp in Sources */,
-				84B994D91B3F65770090FDD3 /* ofxGifEncoderTemplate.cpp in Sources */,
+				840579C61B82AF2700579B66 /* ofxGifEncoderTemplate.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 			);
