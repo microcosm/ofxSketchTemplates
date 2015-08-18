@@ -16,7 +16,7 @@ void ofApp::setup(){
     ofSetWindowShape(500, 500);
 
     //Record exactly 12 frames
-    gif.setup(ofGetTimestampString("%Y-%m-%d"), 12);
+    gif.setup(12);
 
     //Take a look at the source code for gif.setup() and gif.setupPaused()
     //Here you can record to/from specified frames, set a custom gif

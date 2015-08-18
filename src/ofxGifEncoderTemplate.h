@@ -11,6 +11,7 @@ enum ofxGifEncoderIsolation {
 class ofxGifEncoderTemplate : public ofBaseApp{
 
 public:
+    void setup(int _renderFromFrameCount, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setup(string _filename, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setupPaused(string _filename, int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setTextColor(ofColor _textColor);
