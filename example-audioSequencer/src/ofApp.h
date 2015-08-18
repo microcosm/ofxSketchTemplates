@@ -8,9 +8,6 @@ class ofApp : public ofBaseApp{
 
 public:
     void setup();
-    void setupAudioUnits();
-    void setupTimeline();
-
     void update();
     void draw();
 

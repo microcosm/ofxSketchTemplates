@@ -3,23 +3,16 @@
 void ofApp::setup(){
     //10 seconds at 60bpm
     audioSequencer.setup(10, 60);
+
+    //Set up audio unit manager with a synth and a chain
     audio = audioSequencer.getAudioUnitManager();
-    timeline = audioSequencer.getTimeline();
-
-    //Set up any audio units and timeline interactions
-    setupAudioUnits();
-    setupTimeline();
-}
-
-void ofApp::setupAudioUnits() {
     noiseMaker.setup('aumu', 'ncut', 'TOGU');
     audio->add(&chain)
-         .link(&noiseMaker).toMixer();
-}
+          .link(&noiseMaker).toMixer();
 
-void ofApp::setupTimeline() {
     //Note that the MIDI event track is set up for you by default
     //You can add more tracks to that below
+    timeline = audioSequencer.getTimeline();
     timeline->addCurves("filter cutoff");
 }
 
