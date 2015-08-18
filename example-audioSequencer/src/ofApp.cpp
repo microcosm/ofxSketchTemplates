@@ -12,7 +12,7 @@ void ofApp::setup(){
 }
 
 void ofApp::setupAudioUnits() {
-    noiseMaker.setup('aumu', 'ncut', 'TOGU', AU_TYPE_SYNTH, "TALNoiseMaker");
+    noiseMaker.setup('aumu', 'ncut', 'TOGU', AU_TYPE_SYNTH);
     audio->add(&chain);
     chain.link(&noiseMaker).toMixer();
     audio->loadPresets(&chain);
