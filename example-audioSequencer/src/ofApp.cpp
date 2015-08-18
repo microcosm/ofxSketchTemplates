@@ -29,11 +29,11 @@ void ofApp::update(){
 }
 
 void ofApp::draw(){
-    audioSequencer.draw();
+    
 }
 
 void ofApp::keyPressed(int key){
-    audioSequencer.keyPressed(key);
+    
 }
 
 void ofApp::keyReleased(int key){

@@ -8,9 +8,9 @@ class ofxAudioSequencerTemplate : public ofBaseApp{
 
 public:
     void setup(float durationInSecs=10, float bpm=-1);
-    void draw();
-    void exit();
-    void keyPressed(int key);
+    void draw(ofEventArgs& eventArgs);
+    void exit(ofEventArgs& eventArgs);
+    void keyPressed(ofKeyEventArgs& eventArgs);
     ofxAudioUnitManager* getAudioUnitManager();
     ofxTimeline* getTimeline();
     void midiEvent(ofxTLSwitchEventArgs &args);
