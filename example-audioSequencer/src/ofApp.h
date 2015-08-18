@@ -1,11 +1,16 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxAudioSequencerTemplate.h"
+#include "TALNoiseMaker.h"
 
 class ofApp : public ofBaseApp{
 
 public:
     void setup();
+    void setupAudioUnits();
+    void setupTimeline();
+
     void update();
     void draw();
 
@@ -18,4 +23,10 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+
+    ofxAudioSequencerTemplate audioSequencer;
+    ofxTimeline* timeline;
+    ofxAudioUnitManager* audio;
+    ofxAudioUnitChain chain;
+    ofxManagedAudioUnit noiseMaker;
 };
