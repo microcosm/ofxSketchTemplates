@@ -1,7 +1,8 @@
 #include "ofxAudioSequencerTemplate.h"
 
 void ofxAudioSequencerTemplate::setup(float durationInSecs, float bpm) {
-    ofSetWindowShape(1600, 1000);
+    ofSetWindowShape(ofGetScreenWidth(), ofGetScreenHeight());
+    ofSetWindowPosition(0, 0);
     audio.setup();
     audio.toggleDebugUI();
     setupTimeline(durationInSecs, bpm);
@@ -43,8 +44,8 @@ void ofxAudioSequencerTemplate::setupTimeline(float duration, float bpm) {
     timeline.setup();
     timeline.setLoopType(OF_LOOP_NORMAL);
     timeline.setDurationInSeconds(duration);
-    timeline.setOffset(ofVec2f(10, 450));
-    timeline.setWidth(ofGetWidth() - 400);
+    timeline.setOffset(ofVec2f(10, 480));
+    timeline.setWidth(ofGetWidth() - 370);
     if(bpm > -1) {
         timeline.setShowBPMGrid(true);
         timeline.enableSnapToBPM(true);
