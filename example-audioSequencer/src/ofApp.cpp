@@ -13,7 +13,7 @@ void ofApp::setup(){
 
 void ofApp::setupAudioUnits() {
     noiseMaker.setup('aumu', 'ncut', 'TOGU', AU_TYPE_SYNTH, "TALNoiseMaker");
-    audio->add(&chain, "tal-noisemaker", ofColor::blue);
+    audio->add(&chain, "tal-noisemaker");
     chain.link(&noiseMaker).toMixer();
     audio->loadPresets(&chain);
 }
