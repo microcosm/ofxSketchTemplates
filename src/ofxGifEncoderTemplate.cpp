@@ -1,7 +1,7 @@
 #include "ofxGifEncoderTemplate.h"
 
 void ofxGifEncoderTemplate::setup(int _renderFromFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
-    setup(ofGetTimestampString("%Y-%m-%d"), _renderFromFrameCount, _width, _height, isolation);
+    setup("out/" + ofGetTimestampString("%Y-%m-%d"), _renderFromFrameCount, _width, _height, isolation);
 }
 
 void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
