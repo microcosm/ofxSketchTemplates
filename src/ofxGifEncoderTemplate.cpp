@@ -4,6 +4,10 @@ void ofxGifEncoderTemplate::setup(int _renderFromFrameCount, int _width, int _he
     setup("out/" + ofGetTimestampString("%Y-%m-%d"), _renderFromFrameCount, _width, _height, isolation);
 }
 
+void ofxGifEncoderTemplate::setupPaused(int _unpauseFromFrameCount, int _renderFromFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
+    setupPaused("out/" + ofGetTimestampString("%Y-%m-%d"), _unpauseFromFrameCount, _renderFromFrameCount, _width, _height, isolation);
+}
+
 void ofxGifEncoderTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
     filename = _filename + ".gif";
     renderOnFrame = _recordToFrameCount - 1;
