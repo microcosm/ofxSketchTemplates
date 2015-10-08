@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxAudioSequencerTemplate.h"
-#include "TALNoiseMaker.h"
 
 class ofApp : public ofBaseApp{
 
@@ -25,5 +24,5 @@ public:
     ofxTimeline* timeline;
     ofxAudioUnitManager* audio;
     ofxAudioUnitChain chain;
-    ofxManagedAudioUnit noiseMaker;
+    ofxManagedAudioUnit synth;
 };

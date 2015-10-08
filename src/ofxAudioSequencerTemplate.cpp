@@ -74,7 +74,7 @@ void ofxAudioSequencerTemplate::executeMidiCommand(string command, ofxMidiOut *m
 void ofxAudioSequencerTemplate::executeMidiCommand(string command) {
     chains = audio.allChains();
     for(int i = 0; i < chains.size(); i++) {
-        executeMidiCommand(command, chains.at(i)->midi());
+        executeMidiCommand(command, &chains.at(i)->midi);
     }
 }
 

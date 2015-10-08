@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxAudioUnitManager.h"
+#include "ofxAudioUnitParams.h"
 #include "ofxTimeline.h"
 
 class ofxAudioSequencerTemplate : public ofBaseApp{

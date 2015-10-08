@@ -6,9 +6,10 @@ void ofApp::setup(){
 
     //Set up audio unit manager with a synth and a chain
     audio = audioSequencer.getAudioUnitManager();
-    noiseMaker.setup('aumu', 'ncut', 'TOGU');
-    audio->add(&chain)
-          .link(&noiseMaker).toMixer();
+    synth.setup("Synth 1", 'aumu', 'ncut', 'TOGU');
+    audio->createChain(&chain)
+          .link(&synth)
+          .toMixer();
 
     //Note that the MIDI event track is set up for you by default
     //You can add more tracks to that below
@@ -17,7 +18,7 @@ void ofApp::setup(){
 }
 
 void ofApp::update(){
-    noiseMaker.set(TALNoiseMaker_cutoff, timeline->getValue("filter cutoff"));
+    synth.set(TALNoiseMaker_cutoff, timeline->getValue("filter cutoff"));
 }
 
 void ofApp::draw(){
