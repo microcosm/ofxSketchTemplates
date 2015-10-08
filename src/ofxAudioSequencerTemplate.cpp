@@ -33,8 +33,8 @@ ofxTimeline* ofxAudioSequencerTemplate::getTimeline() {
     return &timeline;
 }
 
-void ofxAudioSequencerTemplate::midiEvent(ofxTLSwitchEventArgs &args) {
-    string command = args.switchName + (args.on ? " ON" : " OFF");
+void ofxAudioSequencerTemplate::midiEvent(ofxTLBangEventArgs &args) {
+    string command = args.flag;
     cout << endl << ofGetTimestampString() << endl;
     cout << "switch fired: " << command << endl;
     executeMidiCommand(command);
@@ -51,8 +51,8 @@ void ofxAudioSequencerTemplate::setupTimeline(float duration, float bpm) {
         timeline.enableSnapToBPM(true);
         timeline.setBPM(bpm);
     }
-    timeline.addSwitches("MIDI events");
-    ofAddListener(timeline.events().switched, this, &ofxAudioSequencerTemplate::midiEvent);
+    timeline.addFlags("MIDI events");
+    ofAddListener(timeline.events().bangFired, this, &ofxAudioSequencerTemplate::midiEvent);
 }
 
 /* Format can be either: "60 ON", "60 OFF"  etc, or
@@ -64,7 +64,7 @@ void ofxAudioSequencerTemplate::executeMidiCommand(string command, ofxMidiOut *m
         if(args.at(1) == "ON") {
             cout << "Sending MIDI ON: " << parsedNote << endl;
             midi->sendNoteOn(1, parsedNote);
-        } else {
+        } else if(args.at(1) == "OFF") {
             cout << "Sending MIDI OFF: " << parsedNote << endl;
             midi->sendNoteOff(1, parsedNote);
         }

@@ -14,7 +14,7 @@ public:
     void keyPressed(ofKeyEventArgs& eventArgs);
     ofxAudioUnitManager* getAudioUnitManager();
     ofxTimeline* getTimeline();
-    void midiEvent(ofxTLSwitchEventArgs &args);
+    void midiEvent(ofxTLBangEventArgs &args);
     
 protected:
     void setupTimeline(float duration, float bpm);

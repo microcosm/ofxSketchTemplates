@@ -1,20 +1,32 @@
 <keyframes>
     <key>
-        <switchName>C7</switchName>
-        <max>00:00:24:819</max>
+        <flag>C7 ON</flag>
         <time>00:00:00:010</time>
         <value>0.659722209</value>
     </key>
     <key>
-        <switchName>C5</switchName>
-        <max>00:00:30:519</max>
+        <flag>C5 ON</flag>
         <time>00:00:03:010</time>
         <value>0.659722209</value>
     </key>
     <key>
-        <switchName>C3</switchName>
-        <max>00:00:35:379</max>
+        <flag>C3 ON</flag>
         <time>00:00:06:010</time>
         <value>0.659722209</value>
+    </key>
+    <key>
+        <flag>C7 OFF</flag>
+        <time>00:00:24:819</time>
+        <value>0.414634168</value>
+    </key>
+    <key>
+        <flag>C5 OFF</flag>
+        <time>00:00:30:519</time>
+        <value>0.524390221</value>
+    </key>
+    <key>
+        <flag>C3 OFF</flag>
+        <time>00:00:35:379</time>
+        <value>0.658536553</value>
     </key>
 </keyframes>
