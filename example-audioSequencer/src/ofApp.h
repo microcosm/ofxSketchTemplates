@@ -20,9 +20,9 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
-    ofxAudioSequencerTemplate audioSequencer;
+    ofxAudioSequencerTemplate _template;
     ofxTimeline* timeline;
-    ofxAudioUnitManager* audio;
+    ofxAudioUnitManager* manager;
     ofxAudioUnitChain chain;
     ofxManagedAudioUnit synth;
 };
