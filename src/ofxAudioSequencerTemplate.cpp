@@ -4,6 +4,7 @@ void ofxAudioSequencerTemplate::setup(float durationInSecs, float bpm) {
     ofSetWindowShape(ofGetScreenWidth(), ofGetScreenHeight());
     ofSetWindowPosition(0, 0);
     audio.setup();
+    audio.onlyFocusOnCommand();
     audio.toggleDebugUI();
     setupTimeline(durationInSecs, bpm);
     loadNotesMap();
