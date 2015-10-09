@@ -1,12 +1,12 @@
 #include "ofxAudioSequencerTemplate.h"
 
-void ofxAudioSequencerTemplate::setup(float durationInSecs, float bpm) {
+void ofxAudioSequencerTemplate::setup(float durationInSecs, float bpm, int numChains) {
     ofSetWindowShape(ofGetScreenWidth(), ofGetScreenHeight());
     ofSetWindowPosition(0, 0);
     audio.setup();
     audio.onlyFocusOnCommand();
     audio.toggleDebugUI();
-    setupTimeline(durationInSecs, bpm);
+    setupTimeline(durationInSecs, bpm, numChains);
     loadNotesMap();
     ofAddListener(ofEvents().draw, this, &ofxAudioSequencerTemplate::draw);
     ofAddListener(ofEvents().exit, this, &ofxAudioSequencerTemplate::exit);
@@ -35,13 +35,17 @@ ofxTimeline* ofxAudioSequencerTemplate::getTimeline() {
 }
 
 void ofxAudioSequencerTemplate::midiEvent(ofxTLBangEventArgs &args) {
-    string command = args.flag;
-    cout << endl << ofGetTimestampString() << endl;
-    cout << "switch fired: " << command << endl;
-    executeMidiCommand(command);
+    //cout << endl << ofGetTimestampString() << endl;
+    //cout << "Flagged: " << command << endl;
+    executeMidiCommand(args.flag, toMidiOut(args.track->getName()));
 }
 
-void ofxAudioSequencerTemplate::setupTimeline(float duration, float bpm) {
+ofxMidiOut* ofxAudioSequencerTemplate::toMidiOut(string midiTrackName) {
+    chainId = ofToInt(ofSplitString(midiTrackName, " ")[1]) - 1;
+    return &audio.getChain(chainId)->midi;
+}
+
+void ofxAudioSequencerTemplate::setupTimeline(float duration, float bpm, int numChains) {
     timeline.setup();
     timeline.setLoopType(OF_LOOP_NORMAL);
     timeline.setDurationInSeconds(duration);
@@ -52,7 +56,9 @@ void ofxAudioSequencerTemplate::setupTimeline(float duration, float bpm) {
         timeline.enableSnapToBPM(true);
         timeline.setBPM(bpm);
     }
-    timeline.addFlags("MIDI events");
+    for(int i = 0; i < numChains; i++) {
+        timeline.addFlags("chain " + ofToString(i + 1) + " midi");
+    }
     ofAddListener(timeline.events().bangFired, this, &ofxAudioSequencerTemplate::midiEvent);
 }
 
@@ -69,13 +75,6 @@ void ofxAudioSequencerTemplate::executeMidiCommand(string command, ofxMidiOut *m
             cout << "Sending MIDI OFF: " << parsedNote << endl;
             midi->sendNoteOff(1, parsedNote);
         }
-    }
-}
-
-void ofxAudioSequencerTemplate::executeMidiCommand(string command) {
-    chains = audio.allChains();
-    for(int i = 0; i < chains.size(); i++) {
-        executeMidiCommand(command, &chains.at(i)->midi);
     }
 }
 
