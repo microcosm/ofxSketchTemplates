@@ -38,7 +38,7 @@ void ofApp::draw(){
         //Draw a white rect
         float dist = ofGetFrameNum() * 5;
         float size = 100;
-        ofRect(dist, dist, size, size);
+        ofDrawRectangle(dist, dist, size, size);
     }
     gif.endCaptureDraw();
     //This is shorthand for:
