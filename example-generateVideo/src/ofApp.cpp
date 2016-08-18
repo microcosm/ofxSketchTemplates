@@ -1,28 +1,27 @@
 #include "ofApp.h"
 
-//About ofxGifEncoderTemplate
+//About ofxVideoSketchTemplate
 //===========================
-//The gif encoder template simplifies drawing whatever you like into
-//an animated gif. It wraps ofxGifEncoder making a lightweight API
-//for you to do things like fade in / out. It is set up with a
+//The video sketch template simplifies drawing whatever you like into
+//a video file. It wraps ofxVideoRecorder making a lightweight API
+//for you to quickly render video and audio. It is set up with a
 //bunch of opinionated defaults which you can override if you like.
 
 //If you want to try this out, run the app and wait until it says
 //'recording'. Go look in the bin/data folder for the generated
-//gif.
+//video.
 
 void ofApp::setup(){
-    //When you set the window shape this will become the gif render size
+    //When you set the window shape this will become the video render size
     ofSetWindowShape(640, 480);
 
-    //Record exactly 12 frames
-    vid.setup("out/filename", 12);
+    //Record exactly 180 frames
+    vid.setup("out/filename", 180);
     vid.enableSlowMode();
 
-    //Take a look at the source code for gif.setup() and gif.setupPaused()
-    //Here you can record to/from specified frames, set a custom gif
-    //width/height, and more. Also check out gif.fadeInOut() to do nice
-    //fades to prevent jumps on the gif's repeat.
+    //Take a look at the source code for vid.setup() and vid.setupPaused()
+    //Here you can record to/from specified frames, set a custom video
+    //width/height, and more.
 }
 
 void ofApp::update(){
@@ -30,7 +29,7 @@ void ofApp::update(){
 }
 
 void ofApp::draw(){
-    //Everything you draw inside the begin/end will be rendered to the gif
+    //Everything you draw inside the begin/end will be rendered to the video
     vid.begin();
     {
         //Clear the buffer with black
@@ -43,9 +42,9 @@ void ofApp::draw(){
     }
     vid.endCaptureDraw();
     //This is shorthand for:
-    //gif.end() - stop drawing to the buffer
-    //gif.captureFrame() - save the contents of the buffer as a gif frame
-    //gif.draw() - draw the contents of the buffer to the screen so you
+    //vid.end() - stop drawing to the buffer
+    //vid.captureFrame() - save the contents of the buffer as a video frame
+    //vid.draw() - draw the contents of the buffer to the screen so you
     //             can see what you are recording in as it runs
 }
 

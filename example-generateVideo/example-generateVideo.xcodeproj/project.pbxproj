@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B4B94F9D1D654D9F006DF27E /* ofxVideoRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4B94F9B1D654D9F006DF27E /* ofxVideoRecorder.cpp */; };
-		B4B94FA81D654DA4006DF27E /* ofxVideoTemplate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4B94FA41D654DA4006DF27E /* ofxVideoTemplate.cpp */; };
+		B4B94FA81D654DA4006DF27E /* ofxVideoSketchTemplate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4B94FA41D654DA4006DF27E /* ofxVideoSketchTemplate.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
@@ -46,8 +46,8 @@
 /* Begin PBXFileReference section */
 		B4B94F9B1D654D9F006DF27E /* ofxVideoRecorder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxVideoRecorder.cpp; sourceTree = "<group>"; };
 		B4B94F9C1D654D9F006DF27E /* ofxVideoRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxVideoRecorder.h; sourceTree = "<group>"; };
-		B4B94FA41D654DA4006DF27E /* ofxVideoTemplate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxVideoTemplate.cpp; sourceTree = "<group>"; };
-		B4B94FA51D654DA4006DF27E /* ofxVideoTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxVideoTemplate.h; sourceTree = "<group>"; };
+		B4B94FA41D654DA4006DF27E /* ofxVideoSketchTemplate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxVideoSketchTemplate.cpp; sourceTree = "<group>"; };
+		B4B94FA51D654DA4006DF27E /* ofxVideoSketchTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxVideoSketchTemplate.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* example-generateVideoDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-generateVideoDebug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -106,8 +106,8 @@
 		B4B94F9F1D654DA4006DF27E /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B4B94FA41D654DA4006DF27E /* ofxVideoTemplate.cpp */,
-				B4B94FA51D654DA4006DF27E /* ofxVideoTemplate.h */,
+				B4B94FA41D654DA4006DF27E /* ofxVideoSketchTemplate.cpp */,
+				B4B94FA51D654DA4006DF27E /* ofxVideoSketchTemplate.h */,
 			);
 			name = src;
 			path = ../../../addons/ofxSketchTemplates/src;
@@ -249,7 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4B94FA81D654DA4006DF27E /* ofxVideoTemplate.cpp in Sources */,
+				B4B94FA81D654DA4006DF27E /* ofxVideoSketchTemplate.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				B4B94F9D1D654D9F006DF27E /* ofxVideoRecorder.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,

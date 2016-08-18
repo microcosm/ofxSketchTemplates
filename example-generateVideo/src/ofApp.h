@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxVideoTemplate.h"
+#include "ofxVideoSketchTemplate.h"
 
 class ofApp : public ofBaseApp{
 

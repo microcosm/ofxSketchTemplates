@@ -1,4 +1,4 @@
-#include "ofxVideoTemplate.h"
+#include "ofxVideoSketchTemplate.h"
 
 void ofxVideoTemplate::setup(int _renderFromFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
     setup("out/" + ofGetTimestampString("%Y-%m-%d"), _renderFromFrameCount, _width, _height, isolation);
