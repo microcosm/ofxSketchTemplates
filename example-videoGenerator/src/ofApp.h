@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxVideoSketchTemplate.h"
+#include "ofxVideoGeneratorTemplate.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +20,5 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
-    ofxVideoTemplate vid;
+    ofxVideoGeneratorTemplate vid;
 };

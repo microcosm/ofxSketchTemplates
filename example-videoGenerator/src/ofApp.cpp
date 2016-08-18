@@ -1,8 +1,8 @@
 #include "ofApp.h"
 
-//About ofxVideoSketchTemplate
-//===========================
-//The video sketch template simplifies drawing whatever you like into
+//About ofxVideoGeneratorTemplate
+//===============================
+//The video generator template simplifies drawing whatever you like into
 //a video file. It wraps ofxVideoRecorder making a lightweight API
 //for you to quickly render video and audio. It is set up with a
 //bunch of opinionated defaults which you can override if you like.

@@ -1,14 +1,14 @@
-#include "ofxVideoSketchTemplate.h"
+#include "ofxVideoGeneratorTemplate.h"
 
-void ofxVideoTemplate::setup(int _renderFromFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
+void ofxVideoGeneratorTemplate::setup(int _renderFromFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
     setup("out/" + ofGetTimestampString("%Y-%m-%d"), _renderFromFrameCount, _width, _height, isolation);
 }
 
-void ofxVideoTemplate::setupPaused(int _unpauseFromFrameCount, int _renderFromFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
+void ofxVideoGeneratorTemplate::setupPaused(int _unpauseFromFrameCount, int _renderFromFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
     setupPaused("out/" + ofGetTimestampString("%Y-%m-%d"), _unpauseFromFrameCount, _renderFromFrameCount, _width, _height, isolation);
 }
 
-void ofxVideoTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
+void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
     filename = _filename + ".mov";
     finishOnFrame = _recordToFrameCount - 1;
     fadeAlpha = 0;
@@ -48,22 +48,22 @@ void ofxVideoTemplate::setup(string _filename, int _recordToFrameCount, int _wid
     fbo.end();
 }
 
-void ofxVideoTemplate::setupPaused(string _filename, int _recordFromFrameCount, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
+void ofxVideoGeneratorTemplate::setupPaused(string _filename, int _recordFromFrameCount, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
     setup(_filename, _recordToFrameCount, _width, _height, isolation);
     unpauseOnFrame = _recordFromFrameCount - 1;
     recordingMessage = "Recording from frame " + ofToString(_recordFromFrameCount) + " to frame " + ofToString(_recordToFrameCount);
     pause();
 }
 
-void ofxVideoTemplate::setTextColor(ofColor _textColor) {
+void ofxVideoGeneratorTemplate::setTextColor(ofColor _textColor) {
     textColor = _textColor;
 }
 
-void ofxVideoTemplate::enableTextOverlay() {
+void ofxVideoGeneratorTemplate::enableTextOverlay() {
     textOverlay = true;
 }
 
-void ofxVideoTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor color, int _numBlankFramesAfterFadeOut) {
+void ofxVideoGeneratorTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor color, int _numBlankFramesAfterFadeOut) {
     fadeAlphaIncrementIn = 255 / numFramesIn;
     fadeAlphaIncrementOut = 255 / numFramesOut;
     beginFadeOutOnFrame = finishOnFrame - numFramesOut;
@@ -75,29 +75,29 @@ void ofxVideoTemplate::fadeInOut(int numFramesIn, int numFramesOut, ofColor colo
     }
 }
 
-void ofxVideoTemplate::begin(){
+void ofxVideoGeneratorTemplate::begin(){
     fbo.begin();
     beginLayerIsolation();
 }
 
-void ofxVideoTemplate::end(){
+void ofxVideoGeneratorTemplate::end(){
     endLayerIsolation();
     drawFadeIfNeeded();
     fbo.end();
 }
 
-void ofxVideoTemplate::endAndCaptureFrame(){
+void ofxVideoGeneratorTemplate::endAndCaptureFrame(){
     end();
     captureFrame();
 }
 
-void ofxVideoTemplate::endCaptureDraw(){
+void ofxVideoGeneratorTemplate::endCaptureDraw(){
     end();
     captureFrame();
     draw();
 }
 
-void ofxVideoTemplate::draw(){
+void ofxVideoGeneratorTemplate::draw(){
     ofPushStyle();
     ofSetColor(ofColor::white);
     fbo.draw(0, 0);
@@ -113,13 +113,13 @@ void ofxVideoTemplate::draw(){
     ofPopStyle();
 }
 
-void ofxVideoTemplate::pause(){
+void ofxVideoGeneratorTemplate::pause(){
     paused = true;
     videoRecorder.setPaused(paused);
     renderMessage = "[[Paused...]]";
 }
 
-void ofxVideoTemplate::unpause(){
+void ofxVideoGeneratorTemplate::unpause(){
     paused = false;
     videoRecorder.setPaused(paused);
     if(fade) {
@@ -128,15 +128,15 @@ void ofxVideoTemplate::unpause(){
     renderMessage = "[[RECORDING...]]";
 }
 
-void ofxVideoTemplate::togglePause(){
+void ofxVideoGeneratorTemplate::togglePause(){
     paused = !paused;
 }
 
-void ofxVideoTemplate::enableSlowMode(){
+void ofxVideoGeneratorTemplate::enableSlowMode(){
     slowMode = true;
 }
 
-void ofxVideoTemplate::captureFrame(){
+void ofxVideoGeneratorTemplate::captureFrame(){
     if(!renderingNow && !paused) {
         drawFboIntoGifEncoder();
         
@@ -150,13 +150,13 @@ void ofxVideoTemplate::captureFrame(){
     }
 }
 
-void ofxVideoTemplate::rotateAroundCenter(float degrees){
+void ofxVideoGeneratorTemplate::rotateAroundCenter(float degrees){
     ofTranslate(halfWidth, halfHeight);
     ofRotateZ(degrees);
     ofTranslate(-halfWidth, -halfHeight);
 }
 
-void ofxVideoTemplate::finish() {
+void ofxVideoGeneratorTemplate::finish() {
     drawBlankFrames();
     videoRecorder.close();
     if(!renderingNow) {
@@ -165,15 +165,15 @@ void ofxVideoTemplate::finish() {
     }
 }
 
-void ofxVideoTemplate::exit(){
+void ofxVideoGeneratorTemplate::exit(){
     videoRecorder.close();
 }
 
-ofVec2f ofxVideoTemplate::size(){
+ofVec2f ofxVideoGeneratorTemplate::size(){
     return ofVec2f(width, height);
 }
 
-void ofxVideoTemplate::drawFboIntoGifEncoder() {
+void ofxVideoGeneratorTemplate::drawFboIntoGifEncoder() {
     fbo.readToPixels(pixels);
     if(!videoRecorder.addFrame(pixels)) {
         ofLogWarning("Frame could not be drawn to recorder");
@@ -183,7 +183,7 @@ void ofxVideoTemplate::drawFboIntoGifEncoder() {
     }
 }
 
-void ofxVideoTemplate::drawFadeIfNeeded() {
+void ofxVideoGeneratorTemplate::drawFadeIfNeeded() {
     if(ofGetFrameNum() < beginFadeOutOnFrame && fadeAlpha > 0) {
         drawFade();
         fadeAlpha -= fadeAlphaIncrementIn;
@@ -194,7 +194,7 @@ void ofxVideoTemplate::drawFadeIfNeeded() {
     }
 }
 
-void ofxVideoTemplate::drawFade() {
+void ofxVideoGeneratorTemplate::drawFade() {
     ofPushStyle();
     {
         ofSetColor(fadeColor, fadeAlpha);
@@ -203,7 +203,7 @@ void ofxVideoTemplate::drawFade() {
     ofPopStyle();
 }
 
-void ofxVideoTemplate::drawBlankFrames() {
+void ofxVideoGeneratorTemplate::drawBlankFrames() {
     fbo.begin();
     ofClear(fadeColor);
     fbo.end();
@@ -212,14 +212,14 @@ void ofxVideoTemplate::drawBlankFrames() {
     }
 }
 
-void ofxVideoTemplate::beginLayerIsolation() {
+void ofxVideoGeneratorTemplate::beginLayerIsolation() {
     if(drawingIsolation == ISOLATE_DRAWING) {
         ofPushMatrix();
         ofPushStyle();
     }
 }
 
-void ofxVideoTemplate::endLayerIsolation() {
+void ofxVideoGeneratorTemplate::endLayerIsolation() {
     if(drawingIsolation == ISOLATE_DRAWING) {
         ofPopStyle();
         ofPopMatrix();

@@ -8,7 +8,7 @@ enum ofxGifEncoderIsolation {
     ISOLATE_DRAWING
 };
 
-class ofxVideoTemplate : public ofBaseApp{
+class ofxVideoGeneratorTemplate : public ofBaseApp{
 
 public:
     void setup(int _renderFromFrameCount, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
