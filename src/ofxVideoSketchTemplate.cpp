@@ -102,7 +102,7 @@ void ofxVideoTemplate::draw(){
     ofSetColor(ofColor::white);
     fbo.draw(0, 0);
     ofSetColor(ofColor(ofColor::gray, 128));
-    ofRect(10, height - 120, 280, 90);
+    ofDrawRectangle(10, height - 120, 280, 90);
     ofSetColor(textColor);
     ofDrawBitmapString(
        recordingMessage +
@@ -198,7 +198,7 @@ void ofxVideoTemplate::drawFade() {
     ofPushStyle();
     {
         ofSetColor(fadeColor, fadeAlpha);
-        ofRect(0, 0, width, height);
+        ofDrawRectangle(0, 0, width, height);
     }
     ofPopStyle();
 }
