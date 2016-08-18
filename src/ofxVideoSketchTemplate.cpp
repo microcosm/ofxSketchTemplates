@@ -39,7 +39,7 @@ void ofxVideoTemplate::setup(string _filename, int _recordToFrameCount, int _wid
 
     videoRecorder.setup(filename, width, height, 60);
     videoRecorder.setVideoCodec("mpeg4");
-    videoRecorder.setVideoBitrate("800k");
+    videoRecorder.setVideoBitrate("8000k");
     videoRecorder.start();
 
     fbo.allocate(width, height, GL_RGB);
