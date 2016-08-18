@@ -26,7 +26,7 @@ public:
     void pause();
     void unpause();
     void togglePause();
-    void enableSlowMode();
+    void enableRenderMode();
     void captureFrame();
     void rotateAroundCenter(float degrees);
     void finish();
@@ -46,8 +46,8 @@ protected:
     void endLayerIsolation();
     int colors, frameDuration;
     int framerate, finishOnFrame, unpauseOnFrame;
-    string filename, renderMessage, recordingMessage;
-    bool slowMode, renderingNow, paused;
+    string filename, message, recordingMessage;
+    bool renderMode, finishingNow, paused;
     ofxGifEncoderIsolation drawingIsolation;
     
     ofxVideoRecorder videoRecorder;

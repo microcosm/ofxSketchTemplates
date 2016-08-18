@@ -25,7 +25,7 @@ void ofApp::setup(){
     
     //Record exactly 180 frames
     vid.setup("out/filename", 180);
-    //vid.enableSlowMode();
+    //vid.enableRenderMode(); //Does it slowly
 }
 
 void ofApp::update(){

@@ -9,6 +9,9 @@ void ofxVideoGeneratorTemplate::setupPaused(int _unpauseFromFrameCount, int _ren
 }
 
 void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
+    ofSetFrameRate(60);
+    renderMode = false;
+
     filename = _filename + ".mov";
     finishOnFrame = _recordToFrameCount - 1;
     fadeAlpha = 0;
@@ -19,10 +22,9 @@ void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount,
     height = _height;
     frameDuration = 0.2;
     colors = 256;
-    slowMode = false;
     paused = false;
-    renderingNow = false;
-    renderMessage = "[[Recording...]]";
+    finishingNow = false;
+    message = "[[Recording...]]";
     recordingMessage = "Recording to frame " + ofToString(_recordToFrameCount) + " frames";
     unpauseOnFrame = -1;
     drawingIsolation = isolation;
@@ -33,9 +35,6 @@ void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount,
     doubleHeight = height * 2;
     tripleWidth = width * 3;
     tripleHeight = height * 3;
-
-    framerate = slowMode ? 5 : 10;
-    ofSetFrameRate(framerate);
 
     videoRecorder.setup(filename, width, height, 60);
     videoRecorder.setVideoCodec("mpeg4");
@@ -106,7 +105,7 @@ void ofxVideoGeneratorTemplate::draw(){
     ofSetColor(textColor);
     ofDrawBitmapString(
        recordingMessage +
-       "\n\n" + renderMessage + "\n\n" +
+       "\n\n" + message + "\n\n" +
        "Frame count: " + ofToString(ofGetFrameNum() + 1) + " / " +
        ofToString(ofGetFrameRate()) + "fps...",
        20, height - 100);
@@ -115,38 +114,45 @@ void ofxVideoGeneratorTemplate::draw(){
 
 void ofxVideoGeneratorTemplate::pause(){
     paused = true;
-    videoRecorder.setPaused(paused);
-    renderMessage = "[[Paused...]]";
+    if(renderMode){
+        videoRecorder.setPaused(paused);
+    }
+    message = "[[Paused...]]";
 }
 
 void ofxVideoGeneratorTemplate::unpause(){
     paused = false;
-    videoRecorder.setPaused(paused);
+    if(renderMode){
+        videoRecorder.setPaused(paused);
+    }
     if(fade) {
         fadeAlpha = 255;
     }
-    renderMessage = "[[RECORDING...]]";
+    message = "[[RECORDING...]]";
 }
 
 void ofxVideoGeneratorTemplate::togglePause(){
     paused = !paused;
 }
 
-void ofxVideoGeneratorTemplate::enableSlowMode(){
-    slowMode = true;
+void ofxVideoGeneratorTemplate::enableRenderMode(){
+    ofSetFrameRate(10);
+    renderMode = true;
 }
 
 void ofxVideoGeneratorTemplate::captureFrame(){
-    if(!renderingNow && !paused) {
-        drawFboIntoGifEncoder();
-        
-        if(ofGetFrameNum() == finishOnFrame) {
-            finish();
-        }
-    }
+    if(renderMode){
+        if(!finishingNow && !paused) {
+            drawFboIntoGifEncoder();
 
-    if(ofGetFrameNum() == unpauseOnFrame) {
-        unpause();
+            if(ofGetFrameNum() == finishOnFrame) {
+                finish();
+            }
+        }
+
+        if(ofGetFrameNum() == unpauseOnFrame) {
+            unpause();
+        }
     }
 }
 
@@ -157,16 +163,20 @@ void ofxVideoGeneratorTemplate::rotateAroundCenter(float degrees){
 }
 
 void ofxVideoGeneratorTemplate::finish() {
-    drawBlankFrames();
-    videoRecorder.close();
-    if(!renderingNow) {
-        renderingNow = true;
-        renderMessage = "[[Rendering...]]";
+    if(renderMode){
+        drawBlankFrames();
+        videoRecorder.close();
+    }
+    if(!finishingNow) {
+        finishingNow = true;
+        message = "[[Finishing...]]";
     }
 }
 
 void ofxVideoGeneratorTemplate::exit(){
-    videoRecorder.close();
+    if(renderMode){
+        videoRecorder.close();
+    }
 }
 
 ofVec2f ofxVideoGeneratorTemplate::size(){
@@ -174,23 +184,27 @@ ofVec2f ofxVideoGeneratorTemplate::size(){
 }
 
 void ofxVideoGeneratorTemplate::drawFboIntoGifEncoder() {
-    fbo.readToPixels(pixels);
-    if(!videoRecorder.addFrame(pixels)) {
-        ofLogWarning("Frame could not be drawn to recorder");
-    }
-    if(videoRecorder.hasVideoError()) {
-        ofLogWarning("Recorder failed to write frame");
+    if(renderMode){
+        fbo.readToPixels(pixels);
+        if(!videoRecorder.addFrame(pixels)) {
+            ofLogWarning("Frame could not be drawn to recorder");
+        }
+        if(videoRecorder.hasVideoError()) {
+            ofLogWarning("Recorder failed to write frame");
+        }
     }
 }
 
 void ofxVideoGeneratorTemplate::drawFadeIfNeeded() {
-    if(ofGetFrameNum() < beginFadeOutOnFrame && fadeAlpha > 0) {
-        drawFade();
-        fadeAlpha -= fadeAlphaIncrementIn;
-    }
-    if(ofGetFrameNum() >= beginFadeOutOnFrame && fadeAlpha < 255) {
-        fadeAlpha += fadeAlphaIncrementOut;
-        drawFade();
+    if(renderMode){
+        if(ofGetFrameNum() < beginFadeOutOnFrame && fadeAlpha > 0) {
+            drawFade();
+            fadeAlpha -= fadeAlphaIncrementIn;
+        }
+        if(ofGetFrameNum() >= beginFadeOutOnFrame && fadeAlpha < 255) {
+            fadeAlpha += fadeAlphaIncrementOut;
+            drawFade();
+        }
     }
 }
 

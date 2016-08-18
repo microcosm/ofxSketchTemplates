@@ -17,7 +17,7 @@ void ofApp::setup(){
 
     //Record exactly 180 frames
     vid.setup("out/filename", 180);
-    vid.enableSlowMode();
+    vid.enableRenderMode(); //Does it slowly
 
     //Take a look at the source code for vid.setup() and vid.setupPaused()
     //Here you can record to/from specified frames, set a custom video
