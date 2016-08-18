@@ -9,21 +9,10 @@ void ofxAudioSequencerTemplate::setup(float durationInSecs, float bpm, int numCh
     setupTimeline(durationInSecs, bpm, numChains);
     loadNotesMap();
     ofAddListener(ofEvents().draw, this, &ofxAudioSequencerTemplate::draw);
-    ofAddListener(ofEvents().exit, this, &ofxAudioSequencerTemplate::exit);
-    ofAddListener(ofEvents().keyPressed, this, &ofxAudioSequencerTemplate::keyPressed);
 }
 
 void ofxAudioSequencerTemplate::draw(ofEventArgs& eventArgs) {
-    audio.draw();
     timeline.draw();
-}
-
-void ofxAudioSequencerTemplate::exit(ofEventArgs& eventArgs) {
-    audio.exit();
-}
-
-void ofxAudioSequencerTemplate::keyPressed(ofKeyEventArgs& eventArgs){
-    audio.keyPressed(eventArgs.key);
 }
 
 ofxAudioUnitManager* ofxAudioSequencerTemplate::getAudioUnitManager() {
