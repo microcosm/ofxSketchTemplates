@@ -5,7 +5,7 @@
 class ofxAVSync : public ofBaseApp{
 
 public:
-    void setup();
+    void setupOnce();
     void begin();
     void logCommand(string command);
     vector<string> getCommandsForCurrentFrame();

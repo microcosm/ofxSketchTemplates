@@ -32,7 +32,6 @@ void ofApp::setup(){
     synth.set(TALNoiseMaker_chorus2enable, 1);
 
     //Sync
-    avSync.setup();
     vid.useTimeFrom(&avSync);
 }
 
@@ -41,6 +40,7 @@ void ofApp::update(){
 }
 
 void ofApp::play(void){
+    avSync.setupOnce();
     if(noteOn){
         avSync.logCommand("off");
         aud.sendMidi("C5 OFF", &chain);

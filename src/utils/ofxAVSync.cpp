@@ -1,6 +1,6 @@
 #include "ofxAVSync.h"
 
-void ofxAVSync::setup(){
+void ofxAVSync::setupOnce(){
     if(!begun){
         begin();
     }
