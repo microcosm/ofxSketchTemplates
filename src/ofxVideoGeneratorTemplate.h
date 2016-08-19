@@ -32,6 +32,7 @@ public:
     void finish();
     void exit();
     ofVec2f size();
+    void audioIn(float * input, int bufferSize, int nChannels);
 
     int width, height;
     int halfWidth, halfHeight;
@@ -44,12 +45,18 @@ protected:
     void drawBlankFrames();
     void beginLayerIsolation();
     void endLayerIsolation();
+    void setupSound();
+    int getSoundflowerDeviceId();
+
     int colors, frameDuration;
     int framerate, finishOnFrame, unpauseOnFrame;
     string filename, message, recordingMessage;
     bool renderMode, finishingNow, paused;
     ofxGifEncoderIsolation drawingIsolation;
-    
+
+    ofSoundStream soundStream;
+    int outChannels, inChannels, sampleRate, bufferSize, numBuffers;
+
     ofxVideoRecorder videoRecorder;
     ofFbo fbo;
     ofPixels pixels;

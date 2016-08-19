@@ -36,9 +36,12 @@ void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount,
     tripleWidth = width * 3;
     tripleHeight = height * 3;
 
-    videoRecorder.setup(filename, width, height, 60);
+    setupSound();
+    videoRecorder.setup(filename, width, height, 60, sampleRate, inChannels);
     videoRecorder.setVideoCodec("mpeg4");
     videoRecorder.setVideoBitrate("8000k");
+    videoRecorder.setAudioCodec("mp3");
+    videoRecorder.setAudioBitrate("320k");
     videoRecorder.start();
 
     fbo.allocate(width, height, GL_RGB);
@@ -136,7 +139,7 @@ void ofxVideoGeneratorTemplate::togglePause(){
 }
 
 void ofxVideoGeneratorTemplate::enableRenderMode(){
-    ofSetFrameRate(10);
+    ofSetFrameRate(60);
     renderMode = true;
 }
 
@@ -183,6 +186,12 @@ ofVec2f ofxVideoGeneratorTemplate::size(){
     return ofVec2f(width, height);
 }
 
+void ofxVideoGeneratorTemplate::audioIn(float *input, int bufferSize, int nChannels){
+    if(renderMode && !finishingNow && !paused){
+        videoRecorder.addAudioSamples(input, bufferSize, nChannels);
+    }
+}
+
 void ofxVideoGeneratorTemplate::drawFboIntoGifEncoder() {
     if(renderMode){
         fbo.readToPixels(pixels);
@@ -191,6 +200,9 @@ void ofxVideoGeneratorTemplate::drawFboIntoGifEncoder() {
         }
         if(videoRecorder.hasVideoError()) {
             ofLogWarning("Recorder failed to write frame");
+        }
+        if(videoRecorder.hasAudioError()) {
+            ofLogWarning("Recorder failed to write some audio samples");
         }
     }
 }
@@ -238,4 +250,24 @@ void ofxVideoGeneratorTemplate::endLayerIsolation() {
         ofPopStyle();
         ofPopMatrix();
     }
+}
+
+void ofxVideoGeneratorTemplate::setupSound(){
+    soundStream.setDeviceID(getSoundflowerDeviceId());
+    outChannels = 0;
+    inChannels = 2;
+    sampleRate = 44100; //Make sure SoundFlower is
+    bufferSize = 256;   //configured using these values
+    numBuffers = 4;
+    soundStream.setup(this, outChannels, inChannels, sampleRate, bufferSize, numBuffers);
+}
+
+int ofxVideoGeneratorTemplate::getSoundflowerDeviceId(){
+    vector<ofSoundDevice> devices = ofSoundStreamListDevices();
+    vector<ofSoundDevice>::iterator it = find_if(devices.begin(), devices.end(),
+        [](const ofSoundDevice &d) -> bool {
+            return d.name.find("Soundflower (2ch)") != string::npos;
+        }
+    );
+    return it->deviceID;
 }

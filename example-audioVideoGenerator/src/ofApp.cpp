@@ -6,7 +6,7 @@ void ofApp::setup(){
     
     //Record exactly 180 frames
     vid.setup("out/filename", 180);
-    //vid.enableRenderMode(); //Does it slowly
+    vid.enableRenderMode(); //Does it slowly
     
     //Prep the variables
     size = 100;
