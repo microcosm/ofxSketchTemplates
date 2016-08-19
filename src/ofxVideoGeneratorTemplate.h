@@ -16,6 +16,7 @@ public:
     void setupPaused(int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setup(string _filename, int _recordToFrameCount, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setupPaused(string _filename, int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
+    void isolateDrawingStyle();
     void update(ofEventArgs& args);
     void setTextColor(ofColor _textColor);
     void enableTextOverlay();

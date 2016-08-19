@@ -64,6 +64,10 @@ void ofxVideoGeneratorTemplate::setupPaused(string _filename, int _recordFromFra
     pause();
 }
 
+void ofxVideoGeneratorTemplate::isolateDrawingStyle(){
+    drawingIsolation = ISOLATE_DRAWING;
+}
+
 void ofxVideoGeneratorTemplate::update(ofEventArgs& args){
     if(avSync->hasBegun()){
         hasBegun = true;

@@ -6,6 +6,7 @@ void ofApp::setup(){
     //Set up video and audio templates
     //Record exactly 180 frames
     vid.setup("out/filename", 180);
+    vid.isolateDrawingStyle();
     vid.useTimeFrom(&avSync);
     //"render mode" slows the framerate to prevent skipped frames in video recording
     vid.enableRenderMode(60);
