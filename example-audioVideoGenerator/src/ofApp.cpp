@@ -26,18 +26,28 @@ void ofApp::setup(){
     //Record exactly 180 frames
     vid.setup("out/filename", 180);
     //vid.enableRenderMode(); //Does it slowly
+
+    //Prep the variables
+    position.x = 0;
+    position.y = 0;
+    size = 100;
+    visible = true;
 }
 
 void ofApp::update(){
-    
+    processFrameCommands();
 }
 
 void ofApp::play(void){
+    commandSync.begin();
     if(noteOn){
+        commandSync.logCommand("off");
         aud.sendMidi("C5 OFF", &chain);
     }else{
         synth.set(TALNoiseMaker_cutoff, ofRandom(0.3, 1));
         synth.set(TALNoiseMaker_osc1tune, ofRandom(1) < 0.5 ? 0.2 : 0.8);
+
+        commandSync.logCommand("on");
         aud.sendMidi("C5 ON", &chain);
     }
     noteOn = !noteOn;
@@ -47,11 +57,27 @@ void ofApp::draw(){
     vid.begin();
     {
         ofBackground(ofColor::black);
-        float dist = ofGetFrameNum() * 2;
-        float size = 100;
-        ofDrawRectangle(dist, dist, size, size);
+        if(visible){
+            position.x++;
+            position.y++;
+            ofDrawRectangle(position, size, size);
+        }
     }
     vid.endCaptureDraw();
+}
+
+void ofApp::processFrameCommands(){
+    frameCommands = commandSync.getCommandsForCurrentFrame();
+    for(auto const& command : frameCommands){
+        if(command == "on"){
+            visible = true;
+            position.x = 0;
+            position.y = 0;
+        }
+        if(command == "off"){
+            visible = false;
+        }
+    }
 }
 
 void ofApp::keyPressed(int key){

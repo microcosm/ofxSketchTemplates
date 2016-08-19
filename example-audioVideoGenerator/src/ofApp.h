@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxAudioGeneratorTemplate.h"
 #include "ofxVideoGeneratorTemplate.h"
+#include "ofxAVCommandSync.h"
 
 class ofApp : public ofBaseApp{
     
@@ -11,6 +12,7 @@ public:
     void update();
     void play();
     void draw();
+    void processFrameCommands();
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -24,9 +26,15 @@ public:
     
     ofxAudioGeneratorTemplate aud;
     ofxVideoGeneratorTemplate vid;
+    ofxAVCommandSync commandSync;
 
     ofxAudioUnitManager* manager;
     ofxAudioUnitChain chain;
     ofxManagedAudioUnit synth;
     bool noteOn;
+
+    ofVec2f position;
+    float size;
+    vector<string> frameCommands;
+    bool visible;
 };
