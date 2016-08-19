@@ -15,7 +15,6 @@ void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount,
     filename = _filename + ".mov";
     finishOnFrame = _recordToFrameCount - 1;
     finishAudioAtTime = calculateAudioFinishTime(_recordToFrameCount);
-    cout << "finishAudioAtTime = " << finishAudioAtTime<<endl;
     elapsedTime = 0;
     hasBegun = false;
 
@@ -53,6 +52,8 @@ void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount,
     fbo.begin();
     ofClear(255, 255, 255, 0);
     fbo.end();
+
+    ofAddListener(ofEvents().update, this, &ofxVideoGeneratorTemplate::update);
 }
 
 void ofxVideoGeneratorTemplate::setupPaused(string _filename, int _recordFromFrameCount, int _recordToFrameCount, int _width, int _height, ofxGifEncoderIsolation isolation) {
@@ -62,13 +63,15 @@ void ofxVideoGeneratorTemplate::setupPaused(string _filename, int _recordFromFra
     pause();
 }
 
-void ofxVideoGeneratorTemplate::setTextColor(ofColor _textColor) {
-    textColor = _textColor;
+void ofxVideoGeneratorTemplate::update(ofEventArgs& args){
+    if(avSync->hasBegun()){
+        hasBegun = true;
+        elapsedTime = avSync->getElapsedTime();
+    }
 }
 
-void ofxVideoGeneratorTemplate::setElapsedTime(uint64_t elapsed) {
-    hasBegun = true;
-    elapsedTime = elapsed;
+void ofxVideoGeneratorTemplate::setTextColor(ofColor _textColor) {
+    textColor = _textColor;
 }
 
 void ofxVideoGeneratorTemplate::enableTextOverlay() {
@@ -202,6 +205,10 @@ void ofxVideoGeneratorTemplate::audioIn(float *input, int bufferSize, int nChann
             videoRecorder.addAudioSamples(input, bufferSize, nChannels);
         }
     }
+}
+
+void ofxVideoGeneratorTemplate::useTimeFrom(ofxAVSync* _avSync){
+    avSync = _avSync;
 }
 
 void ofxVideoGeneratorTemplate::drawFboIntoGifEncoder() {

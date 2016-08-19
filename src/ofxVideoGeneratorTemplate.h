@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxVideoRecorder.h"
+#include "ofxAVSync.h"
 
 enum ofxGifEncoderIsolation {
     DO_NOT_ISOLATE_DRAWING,
@@ -15,8 +16,8 @@ public:
     void setupPaused(int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setup(string _filename, int _recordToFrameCount, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setupPaused(string _filename, int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
+    void update(ofEventArgs& args);
     void setTextColor(ofColor _textColor);
-    void setElapsedTime(uint64_t elapsed);
     void enableTextOverlay();
     void fadeInOut(int numFramesIn, int numFramesOut, ofColor color=ofColor::black, int _numBlankFramesAfterFadeOut=0);
     void begin();
@@ -34,6 +35,7 @@ public:
     void exit();
     ofVec2f size();
     void audioIn(float * input, int bufferSize, int nChannels);
+    void useTimeFrom(ofxAVSync* _avSync);
 
     int width, height;
     int halfWidth, halfHeight;
@@ -57,6 +59,7 @@ protected:
     ofxGifEncoderIsolation drawingIsolation;
 
     ofSoundStream soundStream;
+    ofxAVSync* avSync;
     int outChannels, inChannels, sampleRate, bufferSize, numBuffers;
     uint64_t elapsedTime, finishAudioAtTime;
     bool hasBegun;

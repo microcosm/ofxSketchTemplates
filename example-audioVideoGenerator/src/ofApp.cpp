@@ -33,12 +33,10 @@ void ofApp::setup(){
 
     //Sync
     avSync.setup();
+    vid.useTimeFrom(&avSync);
 }
 
 void ofApp::update(){
-    if(avSync.hasBegun()){
-        vid.setElapsedTime(avSync.getElapsedTime());
-    }
     processFrameCommands();
 }
 
