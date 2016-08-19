@@ -1,10 +1,14 @@
 #include "ofxAVSync.h"
 
-void ofxAVSync::begin(){
+void ofxAVSync::setup(){
     if(!begun){
-        beginDelay = ofGetElapsedTimeMillis();
-        begun = true;
+        begin();
     }
+}
+
+void ofxAVSync::begin(){
+    beginDelay = ofGetElapsedTimeMillis();
+    begun = true;
 }
 
 void ofxAVSync::logCommand(string command) {

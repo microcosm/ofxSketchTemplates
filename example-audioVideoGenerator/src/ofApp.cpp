@@ -30,6 +30,9 @@ void ofApp::setup(){
     //Fatten up the sound :)
     synth.set(TALNoiseMaker_chorus1enable, 1);
     synth.set(TALNoiseMaker_chorus2enable, 1);
+
+    //Sync
+    avSync.setup();
 }
 
 void ofApp::update(){
@@ -40,9 +43,6 @@ void ofApp::update(){
 }
 
 void ofApp::play(void){
-    if(!avSync.hasBegun()){
-        avSync.begin();
-    }
     if(noteOn){
         avSync.logCommand("off");
         aud.sendMidi("C5 OFF", &chain);
