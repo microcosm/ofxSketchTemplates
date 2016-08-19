@@ -1,6 +1,19 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
+    //---Video setup---//
+    ofSetWindowShape(640, 480);
+    
+    //Record exactly 180 frames
+    vid.setup("out/filename", 180);
+    //vid.enableRenderMode(); //Does it slowly
+    
+    //Prep the variables
+    position.x = 0;
+    position.y = 0;
+    size = 100;
+    visible = true;
+
     //---Audio setup---//
     aud.setup();
 
@@ -19,19 +32,6 @@ void ofApp::setup(){
     //Fatten up the sound :)
     synth.set(TALNoiseMaker_chorus1enable, 1);
     synth.set(TALNoiseMaker_chorus2enable, 1);
-
-    //---Video setup---//
-    ofSetWindowShape(640, 480);
-    
-    //Record exactly 180 frames
-    vid.setup("out/filename", 180);
-    //vid.enableRenderMode(); //Does it slowly
-
-    //Prep the variables
-    position.x = 0;
-    position.y = 0;
-    size = 100;
-    visible = true;
 }
 
 void ofApp::update(){
