@@ -2,35 +2,37 @@
 
 void ofApp::setup(){
     ofSetWindowShape(640, 480);
-
+    
     //Set up video and audio templates
-    vid.setup("out/filename", 180); //record exactly 180 frames
+    //Record exactly 180 frames
+    vid.setup("out/filename", 180);
     vid.useTimeFrom(&avSync);
-    vid.enableRenderMode(); //"render mode" slows the framerate to prevent skipped frames in video recording
+    //"render mode" slows the framerate to prevent skipped frames in video recording
+    vid.enableRenderMode();
     aud.setup();
     audioManager = aud.getAudioUnitManager();
-
+    
     //Set up your initial variables how you like
     size = 100;
     visible = true;
     noteOn = false;
-
+    
     //Set up a new AudioUnit to play with
     synth.setup("Synth 1", 'aumu', 'ncut', 'TOGU');
     audioManager->createChain(&chain).link(&synth).toMixer();
     synth.set(TALNoiseMaker_chorus1enable, 1);
     synth.set(TALNoiseMaker_chorus2enable, 1);
-
+    
     //Set up the beat() method to regularly fire
     ofAddListener(audioManager->bpm.beatEvent, this, &ofApp::beat);
     audioManager->bpm.start();
 }
 
-//The beat() method fires on each beat of the BPM
 void ofApp::beat(void){
+    //The beat() method fires on each beat of the BPM
     //Make sure sync object knows when beat() first fires
     avSync.setupOnce();
-
+    
     //Do whatever you want with sound here, and log commands which
     //will be synced below (so A/V matches up regardless of whether
     //you are in "real-time" or "slow render" mode)
@@ -47,9 +49,8 @@ void ofApp::beat(void){
     noteOn = !noteOn;
 }
 
-//As usual, update() fires on each new graphics frame
 void ofApp::update(){
-
+    //As usual, update() fires on each new graphics frame
     position.x++;
     position.y++;
 
@@ -69,8 +70,8 @@ void ofApp::update(){
     }
 }
 
-//As usual, draw() fires on each new graphics frame (after update())
 void ofApp::draw(){
+    //As usual, draw() fires on each new graphics frame (after update())
     //begin() opens a buffer for us to draw in
     vid.begin();
     {
