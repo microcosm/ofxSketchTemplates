@@ -9,7 +9,7 @@ void ofApp::setup(){
     vid.useTimeFrom(&avSync);
     //"render mode" slows the framerate to prevent skipped frames in video recording
     vid.enableRenderMode(60);
-    aud.setup();
+    aud.setup(false);
     audioManager = aud.getAudioUnitManager();
     
     //Set up your initial variables how you like

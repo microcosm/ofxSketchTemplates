@@ -7,7 +7,7 @@
 class ofxAudioGeneratorTemplate : public ofBaseApp{
 
 public:
-    void setup(int numChains=1);
+    void setup(bool toggleDebugUI=true);
     ofxAudioUnitManager* getAudioUnitManager();
     void sendMidi(string command, ofxAudioUnitChain* chain);
 protected:

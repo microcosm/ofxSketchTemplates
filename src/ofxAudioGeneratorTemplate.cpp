@@ -1,9 +1,10 @@
 #include "ofxAudioGeneratorTemplate.h"
 
-void ofxAudioGeneratorTemplate::setup(int numChains) {
+void ofxAudioGeneratorTemplate::setup(bool toggleDebugUI) {
     audio.setup();
-    //audio.onlyFocusOnCommand();
-    audio.toggleDebugUI();
+    if(toggleDebugUI){
+        audio.toggleDebugUI();
+    }
     loadNotesMap();
 }
 

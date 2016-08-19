@@ -118,14 +118,15 @@ void ofxVideoGeneratorTemplate::draw(){
     ofSetColor(ofColor::white);
     fbo.draw(0, 0);
     ofSetColor(ofColor(ofColor::gray, 128));
-    ofDrawRectangle(10, height - 120, 280, 90);
+    ofDrawRectangle(10, height - 124, 280, 114);
     ofSetColor(textColor);
     ofDrawBitmapString(
        recordingMessage +
        "\n\n" + message + "\n\n" +
        "Frame count: " + ofToString(ofGetFrameNum() + 1) + " / " +
-       ofToString(ofGetFrameRate()) + "fps...",
-       20, height - 100);
+       ofToString(ofGetFrameRate()) + "fps..." + "\n\n" +
+       "Press 'v' to toggle audio UI",
+       20, height - 104);
     ofPopStyle();
 }
 
