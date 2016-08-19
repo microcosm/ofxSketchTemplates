@@ -9,8 +9,6 @@ void ofApp::setup(){
     //vid.enableRenderMode(); //Does it slowly
     
     //Prep the variables
-    position.x = 0;
-    position.y = 0;
     size = 100;
     visible = true;
 
