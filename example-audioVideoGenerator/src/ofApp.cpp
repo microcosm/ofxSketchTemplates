@@ -14,7 +14,6 @@ void ofApp::setup(){
     audioManager = aud.getAudioUnitManager();
     
     //Set up your initial variables how you like
-    size = 100;
     visible = true;
     noteOn = false;
     
@@ -38,34 +37,39 @@ void ofApp::beat(void){
     //will be synced below (so A/V matches up regardless of whether
     //you are in "real-time" or "slow render" mode)
     if(noteOn){
-        avSync.logCommand("off");
         aud.sendMidi("C5 OFF", &chain);
+        avSync.logCommand("off");
     }else{
-        synth.set(TALNoiseMaker_cutoff, ofRandom(0.3, 1));
-        synth.set(TALNoiseMaker_osc1tune, ofRandom(1) < 0.5 ? 0.2 : 0.8);
-
-        avSync.logCommand("on");
+        cutoff = ofRandom(0.3, 1);
+        tune = ofRandom(1) < 0.5 ? 0.2 : 0.8;
+        synth.set(TALNoiseMaker_cutoff, cutoff);
+        synth.set(TALNoiseMaker_osc1tune, tune);
         aud.sendMidi("C5 ON", &chain);
+
+        avSync.logCommand("on", cutoff, tune);
     }
     noteOn = !noteOn;
 }
 
 void ofApp::update(){
     //As usual, update() fires on each new graphics frame
-    position.x++;
-    position.y++;
+    position.x += multiplier * 18;
+    position.y += multiplier * 12;
 
-    for(auto const& command : avSync.getCommandsForCurrentFrame()){
+    for(auto& command : avSync.getCommandsForCurrentFrame()){
         //Do your updates in response to logged commands which match
         //this graphics frame. When you are in "real-time" mode, this
         //will be instantaneous as usual. When you are in "slow render"
         //mode the graphics will appear to lag behind the sound, but
         //it will all match up in the rendered video file
-        if(command == "on"){
+        if(command.is("on")){
             visible = true;
+            multiplier = command.args[0];
+            color = command.args[1] < 0.5 ? ofColor(255, 0, 0, 200) : ofColor(0, 255, 0, 200);
             position.x = 0;
             position.y = 0;
-        }else if(command == "off"){
+            size = 200 * multiplier;
+        }else if(command.is("off")){
             visible = false;
         }
     }
@@ -79,6 +83,7 @@ void ofApp::draw(){
         //Draw based on updated variable state, as usual
         ofBackground(ofColor::black);
         if(visible){
+            ofSetColor(color);
             ofDrawRectangle(position, size, size);
         }
     }

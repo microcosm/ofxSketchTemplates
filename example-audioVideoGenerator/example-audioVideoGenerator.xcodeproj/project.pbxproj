@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B48C98FA1D67A7960081C4E7 /* ofxAVCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B48C98F81D67A7960081C4E7 /* ofxAVCommand.cpp */; };
 		B49D8E1C1D6653E5004EF6D0 /* ofxAudioUnitChain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B49D8E071D6653E5004EF6D0 /* ofxAudioUnitChain.cpp */; };
 		B49D8E1D1D6653E5004EF6D0 /* ofxManagedAudioUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B49D8E091D6653E5004EF6D0 /* ofxManagedAudioUnit.cpp */; };
 		B49D8E1E1D6653E5004EF6D0 /* ofxManagedAudioUnitMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B49D8E0B1D6653E5004EF6D0 /* ofxManagedAudioUnitMixer.cpp */; };
@@ -88,6 +89,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B48C98F81D67A7960081C4E7 /* ofxAVCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAVCommand.cpp; sourceTree = "<group>"; };
+		B48C98F91D67A7960081C4E7 /* ofxAVCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAVCommand.h; sourceTree = "<group>"; };
 		B49D8E071D6653E5004EF6D0 /* ofxAudioUnitChain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAudioUnitChain.cpp; sourceTree = "<group>"; };
 		B49D8E081D6653E5004EF6D0 /* ofxAudioUnitChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAudioUnitChain.h; sourceTree = "<group>"; };
 		B49D8E091D6653E5004EF6D0 /* ofxManagedAudioUnit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxManagedAudioUnit.cpp; sourceTree = "<group>"; };
@@ -476,6 +479,8 @@
 		B49D8F201D667819004EF6D0 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				B48C98F81D67A7960081C4E7 /* ofxAVCommand.cpp */,
+				B48C98F91D67A7960081C4E7 /* ofxAVCommand.h */,
 				B49D8F211D667819004EF6D0 /* ofxAVSync.cpp */,
 				B49D8F221D667819004EF6D0 /* ofxAVSync.h */,
 			);
@@ -622,6 +627,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B48C98FA1D67A7960081C4E7 /* ofxAVCommand.cpp in Sources */,
 				B49D8F071D66596F004EF6D0 /* ofxAudioUnitTap.cpp in Sources */,
 				B49D8F181D6662C8004EF6D0 /* ofxVideoGeneratorTemplate.cpp in Sources */,
 				B49D8EF71D66596F004EF6D0 /* ofxAudioUnit.cpp in Sources */,

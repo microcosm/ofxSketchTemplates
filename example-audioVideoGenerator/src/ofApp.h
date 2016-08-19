@@ -33,6 +33,7 @@ public:
     bool noteOn;
 
     ofVec2f position;
-    float size;
+    ofColor color;
+    float size, cutoff, tune, multiplier;
     bool visible;
 };
