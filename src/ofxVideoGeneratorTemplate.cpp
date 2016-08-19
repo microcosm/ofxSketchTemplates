@@ -42,6 +42,7 @@ void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount,
 
     setupSound();
     videoRecorder.setup(filename, width, height, 60, sampleRate, inChannels);
+    videoRecorder.setAutoSync(false);
     videoRecorder.setVideoCodec("mpeg4");
     videoRecorder.setVideoBitrate("8000k");
     videoRecorder.setAudioCodec("mp3");
