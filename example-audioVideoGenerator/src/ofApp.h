@@ -9,10 +9,9 @@ class ofApp : public ofBaseApp{
     
 public:
     void setup();
+    void beat();
     void update();
-    void play();
     void draw();
-    void processFrameCommands();
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -28,13 +27,12 @@ public:
     ofxVideoGeneratorTemplate vid;
     ofxAVSync avSync;
 
-    ofxAudioUnitManager* manager;
+    ofxAudioUnitManager* audioManager;
     ofxAudioUnitChain chain;
     ofxManagedAudioUnit synth;
     bool noteOn;
 
     ofVec2f position;
     float size;
-    vector<string> frameCommands;
     bool visible;
 };

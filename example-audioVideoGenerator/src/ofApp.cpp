@@ -1,46 +1,39 @@
 #include "ofApp.h"
 
 void ofApp::setup(){
-    //---Video setup---//
     ofSetWindowShape(640, 480);
-    
-    //Record exactly 180 frames
-    vid.setup("out/filename", 180);
-    vid.enableRenderMode(); //Does it slowly
-    
-    //Prep the variables
+
+    //Set up video and audio templates
+    vid.setup("out/filename", 180); //record exactly 180 frames
+    vid.useTimeFrom(&avSync);
+    vid.enableRenderMode(); //"render mode" slows the framerate to prevent skipped frames in video recording
+    aud.setup();
+    audioManager = aud.getAudioUnitManager();
+
+    //Set up your initial variables how you like
     size = 100;
     visible = true;
-
-    //---Audio setup---//
-    aud.setup();
-
-    //Set up a chain and synth
-    manager = aud.getAudioUnitManager();
-    synth.setup("Synth 1", 'aumu', 'ncut', 'TOGU');
-    manager->createChain(&chain)
-      .link(&synth)
-      .toMixer();
-
-    //Use ofxBpm to regularly schedule MIDI events
-    ofAddListener(manager->bpm.beatEvent, this, &ofApp::play);
-    manager->bpm.start();
     noteOn = false;
 
-    //Fatten up the sound :)
+    //Set up a new AudioUnit to play with
+    synth.setup("Synth 1", 'aumu', 'ncut', 'TOGU');
+    audioManager->createChain(&chain).link(&synth).toMixer();
     synth.set(TALNoiseMaker_chorus1enable, 1);
     synth.set(TALNoiseMaker_chorus2enable, 1);
 
-    //Sync
-    vid.useTimeFrom(&avSync);
+    //Set up the beat() method to regularly fire
+    ofAddListener(audioManager->bpm.beatEvent, this, &ofApp::beat);
+    audioManager->bpm.start();
 }
 
-void ofApp::update(){
-    processFrameCommands();
-}
-
-void ofApp::play(void){
+//The beat() method fires on each beat of the BPM
+void ofApp::beat(void){
+    //Make sure sync object knows when beat() first fires
     avSync.setupOnce();
+
+    //Do whatever you want with sound here, and log commands which
+    //will be synced below (so A/V matches up regardless of whether
+    //you are in "real-time" or "slow render" mode)
     if(noteOn){
         avSync.logCommand("off");
         aud.sendMidi("C5 OFF", &chain);
@@ -54,31 +47,43 @@ void ofApp::play(void){
     noteOn = !noteOn;
 }
 
-void ofApp::draw(){
-    vid.begin();
-    {
-        ofBackground(ofColor::black);
-        if(visible){
-            position.x++;
-            position.y++;
-            ofDrawRectangle(position, size, size);
-        }
-    }
-    vid.endCaptureDraw();
-}
+//As usual, update() fires on each new graphics frame
+void ofApp::update(){
 
-void ofApp::processFrameCommands(){
-    frameCommands = avSync.getCommandsForCurrentFrame();
-    for(auto const& command : frameCommands){
+    position.x++;
+    position.y++;
+
+    for(auto const& command : avSync.getCommandsForCurrentFrame()){
+        //Do your updates in response to logged commands which match
+        //this graphics frame. When you are in "real-time" mode, this
+        //will be instantaneous as usual. When you are in "slow render"
+        //mode the graphics will appear to lag behind the sound, but
+        //it will all match up in the rendered video file
         if(command == "on"){
             visible = true;
             position.x = 0;
             position.y = 0;
-        }
-        if(command == "off"){
+        }else if(command == "off"){
             visible = false;
         }
     }
+}
+
+//As usual, draw() fires on each new graphics frame (after update())
+void ofApp::draw(){
+    //begin() opens a buffer for us to draw in
+    vid.begin();
+    {
+        //Draw based on updated variable state, as usual
+        ofBackground(ofColor::black);
+        if(visible){
+            ofDrawRectangle(position, size, size);
+        }
+    }
+    vid.endCaptureDraw();
+    //endCaptureDraw() ends the buffer drawing, captures to the video
+    //file on disk, and draws the buffer to the screen (so we can see
+    //what we are rendering)
 }
 
 void ofApp::keyPressed(int key){
