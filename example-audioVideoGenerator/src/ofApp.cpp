@@ -33,19 +33,24 @@ void ofApp::setup(){
 }
 
 void ofApp::update(){
+    if(avSync.hasBegun()){
+        vid.setElapsedTime(avSync.getElapsedTime());
+    }
     processFrameCommands();
 }
 
 void ofApp::play(void){
-    commandSync.begin();
+    if(!avSync.hasBegun()){
+        avSync.begin();
+    }
     if(noteOn){
-        commandSync.logCommand("off");
+        avSync.logCommand("off");
         aud.sendMidi("C5 OFF", &chain);
     }else{
         synth.set(TALNoiseMaker_cutoff, ofRandom(0.3, 1));
         synth.set(TALNoiseMaker_osc1tune, ofRandom(1) < 0.5 ? 0.2 : 0.8);
 
-        commandSync.logCommand("on");
+        avSync.logCommand("on");
         aud.sendMidi("C5 ON", &chain);
     }
     noteOn = !noteOn;
@@ -65,7 +70,7 @@ void ofApp::draw(){
 }
 
 void ofApp::processFrameCommands(){
-    frameCommands = commandSync.getCommandsForCurrentFrame();
+    frameCommands = avSync.getCommandsForCurrentFrame();
     for(auto const& command : frameCommands){
         if(command == "on"){
             visible = true;

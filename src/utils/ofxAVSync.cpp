@@ -1,18 +1,18 @@
-#include "ofxAVCommandSync.h"
+#include "ofxAVSync.h"
 
-void ofxAVCommandSync::begin(){
+void ofxAVSync::begin(){
     if(!begun){
         beginDelay = ofGetElapsedTimeMillis();
         begun = true;
     }
 }
 
-void ofxAVCommandSync::logCommand(string command) {
+void ofxAVSync::logCommand(string command) {
     int targetFrame = getTargetFrameForCurrentTime();
     commands[targetFrame] = command;
 }
 
-vector<string> ofxAVCommandSync::getCommandsForCurrentFrame() {
+vector<string> ofxAVSync::getCommandsForCurrentFrame() {
     vector<string> commandsForCurrentFrame;
     for(auto it = commands.cbegin(); it != commands.cend(); /* it++ */) {
         if(ofGetFrameNum() >= it->first) {
@@ -25,11 +25,15 @@ vector<string> ofxAVCommandSync::getCommandsForCurrentFrame() {
     return commandsForCurrentFrame;
 }
 
-int ofxAVCommandSync::getTargetFrameForCurrentTime() {
-    //Equivalent to: round((getElapsedTime() / 1000) * 60)
-    return round(getElapsedTime() * 0.06);
+uint64_t ofxAVSync::getElapsedTime(){
+    return ofGetElapsedTimeMillis() - beginDelay;
 }
 
-uint64_t ofxAVCommandSync::getElapsedTime(){
-    return ofGetElapsedTimeMillis() - beginDelay;
+bool ofxAVSync::hasBegun(){
+    return begun;
+}
+
+int ofxAVSync::getTargetFrameForCurrentTime() {
+    //Equivalent to: round((getElapsedTime() / 1000) * 60)
+    return round(getElapsedTime() * 0.06);
 }

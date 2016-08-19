@@ -14,6 +14,11 @@ void ofxVideoGeneratorTemplate::setup(string _filename, int _recordToFrameCount,
 
     filename = _filename + ".mov";
     finishOnFrame = _recordToFrameCount - 1;
+    finishAudioAtTime = calculateAudioFinishTime(_recordToFrameCount);
+    cout << "finishAudioAtTime = " << finishAudioAtTime<<endl;
+    elapsedTime = 0;
+    hasBegun = false;
+
     fadeAlpha = 0;
     textColor = ofColor::white;
     textOverlay = false;
@@ -59,6 +64,11 @@ void ofxVideoGeneratorTemplate::setupPaused(string _filename, int _recordFromFra
 
 void ofxVideoGeneratorTemplate::setTextColor(ofColor _textColor) {
     textColor = _textColor;
+}
+
+void ofxVideoGeneratorTemplate::setElapsedTime(uint64_t elapsed) {
+    hasBegun = true;
+    elapsedTime = elapsed;
 }
 
 void ofxVideoGeneratorTemplate::enableTextOverlay() {
@@ -139,7 +149,7 @@ void ofxVideoGeneratorTemplate::togglePause(){
 }
 
 void ofxVideoGeneratorTemplate::enableRenderMode(){
-    ofSetFrameRate(60);
+    ofSetFrameRate(30);
     renderMode = true;
 }
 
@@ -187,8 +197,10 @@ ofVec2f ofxVideoGeneratorTemplate::size(){
 }
 
 void ofxVideoGeneratorTemplate::audioIn(float *input, int bufferSize, int nChannels){
-    if(renderMode && !finishingNow && !paused){
-        videoRecorder.addAudioSamples(input, bufferSize, nChannels);
+    if(hasBegun && finishAudioAtTime > elapsedTime){
+        if(renderMode && !finishingNow && !paused){
+            videoRecorder.addAudioSamples(input, bufferSize, nChannels);
+        }
     }
 }
 
@@ -270,4 +282,8 @@ int ofxVideoGeneratorTemplate::getSoundflowerDeviceId(){
         }
     );
     return it->deviceID;
+}
+
+uint64_t ofxVideoGeneratorTemplate::calculateAudioFinishTime(int frameCount){
+    return (frameCount / 60) * 1000;
 }

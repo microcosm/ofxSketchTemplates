@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxAudioGeneratorTemplate.h"
 #include "ofxVideoGeneratorTemplate.h"
-#include "ofxAVCommandSync.h"
+#include "ofxAVSync.h"
 
 class ofApp : public ofBaseApp{
     
@@ -26,7 +26,7 @@ public:
     
     ofxAudioGeneratorTemplate aud;
     ofxVideoGeneratorTemplate vid;
-    ofxAVCommandSync commandSync;
+    ofxAVSync avSync;
 
     ofxAudioUnitManager* manager;
     ofxAudioUnitChain chain;

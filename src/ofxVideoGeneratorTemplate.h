@@ -13,9 +13,10 @@ class ofxVideoGeneratorTemplate : public ofBaseApp{
 public:
     void setup(int _renderFromFrameCount, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setupPaused(int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
-    void setup(string _filename, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
+    void setup(string _filename, int _recordToFrameCount, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setupPaused(string _filename, int _unpauseFromFrameCount=-1, int _renderFromFrameCount=-1, int _width=ofGetWidth(), int _height=ofGetHeight(), ofxGifEncoderIsolation isolation=DO_NOT_ISOLATE_DRAWING);
     void setTextColor(ofColor _textColor);
+    void setElapsedTime(uint64_t elapsed);
     void enableTextOverlay();
     void fadeInOut(int numFramesIn, int numFramesOut, ofColor color=ofColor::black, int _numBlankFramesAfterFadeOut=0);
     void begin();
@@ -47,6 +48,7 @@ protected:
     void endLayerIsolation();
     void setupSound();
     int getSoundflowerDeviceId();
+    uint64_t calculateAudioFinishTime(int frameCount);
 
     int colors, frameDuration;
     int framerate, finishOnFrame, unpauseOnFrame;
@@ -56,6 +58,8 @@ protected:
 
     ofSoundStream soundStream;
     int outChannels, inChannels, sampleRate, bufferSize, numBuffers;
+    uint64_t elapsedTime, finishAudioAtTime;
+    bool hasBegun;
 
     ofxVideoRecorder videoRecorder;
     ofFbo fbo;
