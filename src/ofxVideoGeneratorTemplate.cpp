@@ -152,8 +152,8 @@ void ofxVideoGeneratorTemplate::togglePause(){
     paused = !paused;
 }
 
-void ofxVideoGeneratorTemplate::enableRenderMode(){
-    ofSetFrameRate(30);
+void ofxVideoGeneratorTemplate::enableRenderMode(int frameRate){
+    ofSetFrameRate(frameRate);
     renderMode = true;
 }
 

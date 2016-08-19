@@ -28,7 +28,7 @@ public:
     void pause();
     void unpause();
     void togglePause();
-    void enableRenderMode();
+    void enableRenderMode(int frameRate);
     void captureFrame();
     void rotateAroundCenter(float degrees);
     void finish();
